@@ -26,10 +26,19 @@ bikeApp.map = function initMap() {
   });
 }
 
+bikeApp.getDirections = function(){
+	$.ajax({
+		method 'GET',
+		url: 'http://maps.googleapis.com/maps/api/directions/outputFormat?parameters'
+		dataType: 'jsonp'
+	}).then(doneCallbacks, failCallbacks);
+};
+
 // next ajax request
 // get system information, station information url, system pricing plans
 // next ajax request
 // using station information url - get station data locations
+
 
 $(function() {
 	bikeApp.init();
