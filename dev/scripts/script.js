@@ -20,6 +20,7 @@ bikeApp.init = function() {
 	bikeApp.getCityBikes();
 	bikeApp.map();
 	bikeApp.userTime();
+	bikeApp.getLocations();
 };
 
 const outputUpdate = function(time) {
@@ -65,12 +66,14 @@ var initMap = function() {
 bikeApp.map = function initMap() {
 }
 
-
-// next ajax request
-// get system information, station information url, system pricing plans
-// next ajax request
-// using station information url - get station data locations
-
+bikeApp.getLocations = function(){
+	 var userOrigin = new google.maps.places.Autocomplete(
+	 		(document.getElementById('origin-input')),
+      {types: ['geocode']});
+	 var userDesination = new google.maps.places.Autocomplete(
+	 		(document.getElementById('destination-input')),
+      {types: ['geocode']});
+}
 
 
 $(function() {
