@@ -19,7 +19,15 @@ bikeApp.cityBikesToronto = 'https://tor.publicbikesystem.net/ube/gbfs/v1/';
 bikeApp.init = function() {
 	bikeApp.getCityBikes();
 	bikeApp.map();
+	bikeApp.userTime();
 };
+
+const outputUpdate = function(time) {
+	document.querySelector('#hours').value = time;
+}
+
+bikeApp.userTime = function outputUpdate() {
+}
 
 bikeApp.getCityBikes = function() {
 	$.ajax({
@@ -58,15 +66,11 @@ bikeApp.map = function initMap() {
 }
 
 
-<<<<<<< HEAD
-=======
-
-
->>>>>>> ccc194c1252ed2444dd3bd2710c41cfd965f0b3b
 // next ajax request
 // get system information, station information url, system pricing plans
 // next ajax request
 // using station information url - get station data locations
+
 
 
 $(function() {
