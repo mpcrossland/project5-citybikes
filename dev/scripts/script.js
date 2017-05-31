@@ -16,17 +16,39 @@ bikeApp.getCityBikes = function() {
 	.then(function(res) {
 		console.log(res.data.en.feeds) // returns an array of objects need url
 		// system information, station information url, system pricing plans
+		bikeApp.stationInfoUrl = res.data.en.feeds[1].url;
+		bikeApp.getStationInfo(bikeApp.stationInfoUrl);
 	});
 };
 
+bikeApp.getStationInfo = function(url) {
+	$.ajax({
+		url: url,
+		method: 'GET',
+		dataType: 'json'
+	})
+	.then(function(stations) {
+		console.log(stations);
+	});
+}
+
+// this is used to initialize the map 
+var initMap = function() {
+	new google.maps.Map(document.getElementById('map'), {
+	  center: {lat: 43.70011, lng: -79.4163},
+	  zoom: 11
+	});
+}
+
 bikeApp.map = function initMap() {
-  map = new google.maps.Map(document.getElementById('map'), {
-    center: {lat: 43.70011, lng: -79.4163},
-    zoom: 11
-  });
 }
 
 
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> ccc194c1252ed2444dd3bd2710c41cfd965f0b3b
 // next ajax request
 // get system information, station information url, system pricing plans
 // next ajax request
