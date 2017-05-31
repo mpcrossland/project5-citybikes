@@ -44,12 +44,16 @@ bikeApp.map = function initMap() {
 }
 
 
+<<<<<<< HEAD
+=======
 
 
+>>>>>>> ccc194c1252ed2444dd3bd2710c41cfd965f0b3b
 // next ajax request
 // get system information, station information url, system pricing plans
 // next ajax request
 // using station information url - get station data locations
+
 
 $(function() {
 	bikeApp.init();
