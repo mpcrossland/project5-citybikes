@@ -19,6 +19,9 @@ bikeApp.getCityBikes = function() {
 };
 
 
+
+
+
 // next ajax request
 // get system information, station information url, system pricing plans
 // next ajax request
