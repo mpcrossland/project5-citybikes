@@ -13,8 +13,11 @@
 
 
 const bikeApp = {};
+
 bikeApp.cityBikesUrl = 'http://api.citybik.es/v2/networks';
 bikeApp.cityBikesToronto = 'https://tor.publicbikesystem.net/ube/gbfs/v1/';
+bikeApp.userOriginLatLong =[];
+bikeApp.userDestinationLatLong =[];
 
 bikeApp.init = function() {
 	bikeApp.getCityBikes();
@@ -80,6 +83,28 @@ bikeApp.getLocations = function(){
       {types: ['geocode']});
 }
 
+// setting callback functions for user lat long values
+bikeApp.setUserOriginLatLong = function(result) {
+	bikeApp.userOriginLatLong = [ 
+    	result.geometry.location.lat(), 
+    	result.geometry.location.lng()]
+    	// console.log(userOriginLatLong);
+    bikeApp.compareDistances();
+}
+bikeApp.setUserDestinationLatLong = function(result) {
+    bikeApp.userDestinationLatLong = [ 
+    	result.geometry.location.lat(), 
+    	result.geometry.location.lng()]
+    bikeApp.compareDistances();
+}
+
+// compare distances with city bikes api and user lat long
+bikeApp.compareDistances = function() {
+	if (bikeApp.userDestinationLatLong.length > 0 && bikeApp.userOriginLatLong.length > 0) {
+		console.log(bikeApp.userOriginLatLong);
+		console.log(bikeApp.userDestinationLatLong);
+	}
+}
 //listens for when user submits info and stores that info to originAddress/destinationAddress/time
 bikeApp.getUserInput = function (){
 	$('.userInput').on('submit', function(e){
@@ -87,19 +112,13 @@ bikeApp.getUserInput = function (){
 		const originAddress = $('#origin-input').val()
 		const destinationAddress = $('#destination-input').val();
 		const time = $('#time').val();
-		bikeApp.showUserLatLong = function(result) {
-		    const userLatitude = result.geometry.location.lat();
-		    const userLongitude = result.geometry.location.lng();
-		    console.log(userLatitude);
-		    console.log(userLongitude);
-		}
-		bikeApp.getUserLatLong(bikeApp.showUserLatLong, originAddress);
 
+		bikeApp.getUserLatLong(bikeApp.setUserOriginLatLong, originAddress);
+		bikeApp.getUserLatLong(bikeApp.setUserDestinationLatLong, destinationAddress);
 	})
 }
 
 //turns the location in to lat/lon values
-
 
 bikeApp.getUserLatLong = function (callback, address){
 	geocoder = new google.maps.Geocoder();
@@ -110,7 +129,6 @@ bikeApp.getUserLatLong = function (callback, address){
 			if (status == google.maps.GeocoderStatus.OK){
 				callback(results[0]);
 			}
-			console.log(address);
 		});
 	}
 }
