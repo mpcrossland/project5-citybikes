@@ -24,14 +24,15 @@ bikeApp.init = function() {
 	bikeApp.getUserInput();
 };
 
+
+// allows for a live value change on the time slider.
 const outputUpdate = function(time) {
 	document.querySelector('#hours').value = time;
 }
-
-
 bikeApp.userTime = function outputUpdate() {
 }
 
+//ajax call to citybikes 
 bikeApp.getCityBikes = function() {
 	$.ajax({
 		url: bikeApp.cityBikesToronto,
@@ -46,6 +47,7 @@ bikeApp.getCityBikes = function() {
 	});
 };
 
+//ajax call for citybikes
 bikeApp.getStationInfo = function(url) {
 	$.ajax({
 		url: url,
@@ -68,6 +70,7 @@ var initMap = function() {
 bikeApp.map = function initMap() {
 }
 
+//auto completes location using geocode and stores it to userOrigin/Destination
 bikeApp.getLocations = function(){
 	 var userOrigin = new google.maps.places.Autocomplete(
 	 		(document.getElementById('origin-input')),
@@ -77,14 +80,42 @@ bikeApp.getLocations = function(){
       {types: ['geocode']});
 }
 
+//listens for when user submits info and stores that info to originAddress/destinationAddress/time
 bikeApp.getUserInput = function (){
 	$('.userInput').on('submit', function(e){
 		e.preventDefault();
-		const origin = $('#origin-input').val()
-		const destination = $('#destination-input').val();
+		const originAddress = $('#origin-input').val()
+		const destinationAddress = $('#destination-input').val();
 		const time = $('#time').val();
+		bikeApp.showUserLatLong = function(result) {
+		    const userLatitude = result.geometry.location.lat();
+		    const userLongitude = result.geometry.location.lng();
+		    console.log(userLatitude);
+		    console.log(userLongitude);
+		}
+		bikeApp.getUserLatLong(bikeApp.showUserLatLong, originAddress);
+
 	})
 }
+
+//turns the location in to lat/lon values
+
+
+bikeApp.getUserLatLong = function (callback, address){
+	geocoder = new google.maps.Geocoder();
+	if (geocoder){
+		geocoder.geocode({
+			'address':address
+		}, function (results, status){
+			if (status == google.maps.GeocoderStatus.OK){
+				callback(results[0]);
+			}
+			console.log(address);
+		});
+	}
+}
+
+
 
 $(function() {
 	bikeApp.init();
