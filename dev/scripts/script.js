@@ -46,21 +46,44 @@ bikeApp.getCityBikes = function() {
 		console.log(res.data.en.feeds) // returns an array of objects need url
 		// system information, station information url, system pricing plans
 		bikeApp.stationInfoUrl = res.data.en.feeds[1].url;
-		bikeApp.getStationInfo(bikeApp.stationInfoUrl);
+		bikeApp.getStationInfo();
 	});
 };
 
 //ajax call for citybikes
-bikeApp.getStationInfo = function(url) {
+bikeApp.getStationInfo = function() {
 	$.ajax({
-		url: url,
+		url: bikeApp.stationInfoUrl,
 		method: 'GET',
 		dataType: 'json'
 	})
 	.then(function(stations) {
-		console.log(stations);
-	});
+		console.log(stations.data.stations);
+		bikeApp.cityBikesRefined = stations.data.stations.map((station) => {
+			return {
+				stations: station,
+				latLong: [station.lat, station.lon]
+			}
+		})
+	})
 }
+
+
+// bikeApp.getShortestStation = function(lat, long) {
+// 	$.ajax({
+// 		url: bikeApp.stationInfoUrl,
+// 		method: 'GET',
+// 		dataType: 'json',
+// 		data: {
+// 			lat: lat,
+// 			long: long
+// 		}
+// 	})
+// 	.then(function(stations) {
+		
+// 	})
+// }
+
 
 // this is used to initialize the map 
 var initMap = function() {
@@ -100,9 +123,35 @@ bikeApp.setUserDestinationLatLong = function(result) {
 
 // compare distances with city bikes api and user lat long
 bikeApp.compareDistances = function() {
+	var distanceInfo = [];
+
 	if (bikeApp.userDestinationLatLong.length > 0 && bikeApp.userOriginLatLong.length > 0) {
 		console.log(bikeApp.userOriginLatLong);
 		console.log(bikeApp.userDestinationLatLong);
+		let originLatLong = new google.maps.LatLng(bikeApp.userOriginLatLong[0], bikeApp.userOriginLatLong[1]);
+		let destinationLatLong = new google.maps.LatLng(bikeApp.userOriginLatLong[0], bikeApp.userOriginLatLong[1]);
+		bikeApp.cityBikesRefined.forEach((station) => {
+			let cityBikesLatLong = new google.maps.LatLng(station.latLong[0], station.latLong[1]);
+			let distanceBetweenOrigin = google.maps.geometry.spherical.computeDistanceBetween(originLatLong, cityBikesLatLong);
+			let distanceBetweenDestination = google.maps.geometry.spherical.computeDistanceBetween(destinationLatLong, cityBikesLatLong);
+			// console.log(distanceBetweenOrigin);
+			distanceInfo.push({
+				station: station.latLong,
+				distance_origin: distanceBetweenOrigin,
+				distance_dest: distanceBetweenDestination
+			})
+			// bikeApp.cityBikesRefined.distanceFromOrigin.push(distanceBetweenOrigin);
+			// console.log(bikeApp.cityBikesRefined);
+		});
+
+		// console.log(distanceInfo);
+		// var shortestArray = distanceInfo.sort(function(a,b){
+		// 	return a.distance_origin - b.distance_orgin
+		// });
+
+		// shortestArray[0]
+
+		// bikeApp.getShortestStation(shortestArray[0].station[0], shortestArray[0].station[1])
 	}
 }
 //listens for when user submits info and stores that info to originAddress/destinationAddress/time
