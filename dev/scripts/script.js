@@ -21,11 +21,13 @@ bikeApp.init = function() {
 	bikeApp.map();
 	bikeApp.userTime();
 	bikeApp.getLocations();
+	bikeApp.getUserInput();
 };
 
 const outputUpdate = function(time) {
 	document.querySelector('#hours').value = time;
 }
+
 
 bikeApp.userTime = function outputUpdate() {
 }
@@ -75,6 +77,14 @@ bikeApp.getLocations = function(){
       {types: ['geocode']});
 }
 
+bikeApp.getUserInput = function (){
+	$('.userInput').on('submit', function(e){
+		e.preventDefault();
+		const origin = $('#origin-input').val()
+		const destination = $('#destination-input').val();
+		const time = $('#time').val();
+	})
+}
 
 $(function() {
 	bikeApp.init();
