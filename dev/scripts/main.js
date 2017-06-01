@@ -63,6 +63,8 @@ bikeApp.getStationInfo = function() {
 			return {
 				stations: station,
 				latLong: [station.lat, station.lon]
+				// distanceFromOrigin: [],
+				// distancefromDestination: []
 			}
 		})
 	})
