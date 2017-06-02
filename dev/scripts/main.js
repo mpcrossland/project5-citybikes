@@ -121,14 +121,14 @@ bikeApp.compareDistances = function() {
 			distanceOriginInfo.push({
 				station_id: station.stations.station_id,
 				station_name: station.stations.name,
-				station: station.latLong,
+				station_latlong: station.latLong,
 				distance_origin: distanceBetweenOrigin,
 			});
 
 			distanceDestinationInfo.push({
 				station_id: station.stations.station_id,
 				station_name: station.stations.name,
-				station: station.latLong,
+				station_latlong: station.latLong,
 				distance_dest: distanceBetweenDestination
 			});
 		});
@@ -151,12 +151,10 @@ bikeApp.compareDistances = function() {
 
 		const shortestDistanceOriginStation = shortestDistanceOrigin[0];
 		const shortestDistanceDestinationStation = shortestDistanceDestination[0];
-
-		console.log('shortest origin', shortestDistanceOriginStation);
-		console.log('shortest destination', shortestDistanceDestinationStation);
-
+		const shortestDistanceOriginLatLong = new google.maps.LatLng(shortestDistanceOriginStation.station_latlong[0], shortestDistanceOriginStation.station_latlong[1]);
+		const shortestDistanceDestinationLatLong = new google.maps.LatLng(shortestDistanceDestinationStation.station_latlong[0], shortestDistanceDestinationStation.station_latlong[1]);
 		// need latitude and longitude value for shortest distance station to plug into this function
-		bikeApp.getDistanceDuration();
+		bikeApp.getDistanceDuration(shortestDistanceOriginLatLong, shortestDistanceDestinationLatLong);
 
 	}
 }
@@ -166,8 +164,7 @@ bikeApp.getUserInput = function (){
 		e.preventDefault();
 		const originAddress = $('#origin-input').val()
 		const destinationAddress = $('#destination-input').val();
-		const time = $('#time').val();
-
+		bikeApp.time = $('#time').val();
 		bikeApp.getUserLatLong(bikeApp.setUserOriginLatLong, originAddress);
 		bikeApp.getUserLatLong(bikeApp.setUserDestinationLatLong, destinationAddress);
 	})
@@ -188,25 +185,43 @@ bikeApp.getUserLatLong = function (callback, address){
 	}
 }
 
-bikeApp.getDistanceDuration = function() {
+bikeApp.getDistanceDuration = function(stationOrigin, stationDestination) {
 	var distanceService = new google.maps.DistanceMatrixService();
 	distanceService.getDistanceMatrix({
-	    origins: ['Istanbul, Turkey'],
-	    destinations: ['Ankara, Turkey'],
-	    travelMode: google.maps.TravelMode.DRIVING,
+	    origins: [stationOrigin],
+	    destinations: [stationDestination],
+	    travelMode: google.maps.TravelMode.BICYCLING,
 	    unitSystem: google.maps.UnitSystem.METRIC,
-	    durationInTraffic: true,
-	    avoidHighways: false,
-	    avoidTolls: false
+	    durationInTraffic: true
+
 	},
 	function (response, status) {
 	    if (status !== google.maps.DistanceMatrixStatus.OK) {
 	        console.log('Error:', status);
 	    } else {
-	        console.log(response);
+	    	const stationTravelTime = response.rows[0].elements[0].duration.value; //receiving travel time in seconds
+	    	console.log(stationTravelTime);
+   			bikeApp.travelTimeDifference(bikeApp.time, stationTravelTime);
 	    }
 	});
 }
+
+bikeApp.travelTimeDifference = function (userTime, distanceDuration) {
+	var distanceDurationMinutes = distanceDuration / 60 
+	var userTimeMinutes = userTime * 60
+	var distanceDifference = userTimeMinutes - distanceDurationMinutes
+	console.log(distanceDurationMinutes, "distanceDurationMinutes");
+	console.log(userTimeMinutes, "userTimeMinutes");
+	console.log(distanceDifference, "distance difference");
+
+	if (distanceDifference < 0) {
+		//if user time input is less than trip destination time, prompt alert
+		alert(`You have selected ${bikeApp.time} hours for your trip, but it will take you ${ Math.floor(distanceDurationMinutes) } minutes to get to your destination. Please adjust your trip time`);
+	} else {
+		confirm(`It will take you ${ Math.floor(distanceDurationMinutes) } minutes to travel from station A to station B.`);
+	}
+}
+
 
 
 
