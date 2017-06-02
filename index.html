@@ -14,9 +14,9 @@
 	<main>
 		<section class="user-input">
 			<form action="" class="userInput">
-				<input id="origin-input" class="controls" type="text" placeholder="Enter a starting location">
+				<input id="origin-input" class="controls" type="text" placeholder="Enter a starting location" required>
 
-				 <input id="destination-input" class="controls" type="text" placeholder="Enter a destination location">
+				 <input id="destination-input" class="controls" type="text" placeholder="Enter a destination location" required>
 				<label for="time">Time (hrs)</label>
 				 <input type="range" id="time" min="1" max="24" step="1" value="1" oninput="bikeApp.userTime(outputUpdate(value))">
 				 <output for="time" id="hours">1</output>
@@ -39,7 +39,7 @@
 
 
 	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>	
-	<script src="dev/scripts/script.js"></script>
+	<script src="dev/scripts/main.js"></script>
 	
 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBlSloFbQO8Pm3S6MG07Cz0gMZYN1NpAwQ&libraries=geometry,places&callback=initMap"
 	    async defer></script>
