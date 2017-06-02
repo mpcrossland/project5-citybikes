@@ -68,23 +68,6 @@ bikeApp.getStationInfo = function() {
 	})
 }
 
-
-// bikeApp.getShortestStation = function(lat, long) {
-// 	$.ajax({
-// 		url: bikeApp.stationInfoUrl,
-// 		method: 'GET',
-// 		dataType: 'json',
-// 		data: {
-// 			lat: lat,
-// 			long: long
-// 		}
-// 	})
-// 	.then(function(stations) {
-		
-// 	})
-// }
-
-
 // this is used to initialize the map 
 var initMap = function() {
 	new google.maps.Map(document.getElementById('map'), {
@@ -172,6 +155,9 @@ bikeApp.compareDistances = function() {
 		console.log('shortest origin', shortestDistanceOriginStation);
 		console.log('shortest destination', shortestDistanceDestinationStation);
 
+		// need latitude and longitude value for shortest distance station to plug into this function
+		bikeApp.getDistanceDuration();
+
 	}
 }
 //listens for when user submits info and stores that info to originAddress/destinationAddress/time
@@ -200,6 +186,26 @@ bikeApp.getUserLatLong = function (callback, address){
 			}
 		});
 	}
+}
+
+bikeApp.getDistanceDuration = function() {
+	var distanceService = new google.maps.DistanceMatrixService();
+	distanceService.getDistanceMatrix({
+	    origins: ['Istanbul, Turkey'],
+	    destinations: ['Ankara, Turkey'],
+	    travelMode: google.maps.TravelMode.DRIVING,
+	    unitSystem: google.maps.UnitSystem.METRIC,
+	    durationInTraffic: true,
+	    avoidHighways: false,
+	    avoidTolls: false
+	},
+	function (response, status) {
+	    if (status !== google.maps.DistanceMatrixStatus.OK) {
+	        console.log('Error:', status);
+	    } else {
+	        console.log(response);
+	    }
+	});
 }
 
 
