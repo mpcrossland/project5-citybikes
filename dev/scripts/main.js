@@ -63,8 +63,6 @@ bikeApp.getStationInfo = function() {
 			return {
 				stations: station,
 				latLong: [station.lat, station.lon]
-				// distanceFromOrigin: [],
-				// distancefromDestination: []
 			}
 		})
 	})
@@ -125,35 +123,55 @@ bikeApp.setUserDestinationLatLong = function(result) {
 
 // compare distances with city bikes api and user lat long
 bikeApp.compareDistances = function() {
-	var distanceInfo = [];
+	var distanceOriginInfo = [];
+	var distanceDestinationInfo = [];
 
 	if (bikeApp.userDestinationLatLong.length > 0 && bikeApp.userOriginLatLong.length > 0) {
 		console.log(bikeApp.userOriginLatLong);
 		console.log(bikeApp.userDestinationLatLong);
 		let originLatLong = new google.maps.LatLng(bikeApp.userOriginLatLong[0], bikeApp.userOriginLatLong[1]);
-		let destinationLatLong = new google.maps.LatLng(bikeApp.userOriginLatLong[0], bikeApp.userOriginLatLong[1]);
+		let destinationLatLong = new google.maps.LatLng(bikeApp.userDestinationLatLong[0], bikeApp.userDestinationLatLong[1]);
 		bikeApp.cityBikesRefined.forEach((station) => {
 			let cityBikesLatLong = new google.maps.LatLng(station.latLong[0], station.latLong[1]);
 			let distanceBetweenOrigin = google.maps.geometry.spherical.computeDistanceBetween(originLatLong, cityBikesLatLong);
 			let distanceBetweenDestination = google.maps.geometry.spherical.computeDistanceBetween(destinationLatLong, cityBikesLatLong);
-			// console.log(distanceBetweenOrigin);
-			distanceInfo.push({
+			distanceOriginInfo.push({
+				station_id: station.stations.station_id,
+				station_name: station.stations.name,
 				station: station.latLong,
 				distance_origin: distanceBetweenOrigin,
+			});
+
+			distanceDestinationInfo.push({
+				station_id: station.stations.station_id,
+				station_name: station.stations.name,
+				station: station.latLong,
 				distance_dest: distanceBetweenDestination
-			})
-			// bikeApp.cityBikesRefined.distanceFromOrigin.push(distanceBetweenOrigin);
-			// console.log(bikeApp.cityBikesRefined);
+			});
 		});
 
-		// console.log(distanceInfo);
-		// var shortestArray = distanceInfo.sort(function(a,b){
-		// 	return a.distance_origin - b.distance_orgin
-		// });
+		let shortestDistanceOrigin = distanceOriginInfo.sort((a, b) => {
+			if (a.distance_origin && b.distance_origin) {
+				return a.distance_origin - b.distance_origin;
+			} else {
+				return 999999999999999;
+			}
+		});
 
-		// shortestArray[0]
+		let shortestDistanceDestination = distanceDestinationInfo.sort((a, b) => {
+			if (a.distance_dest && b.distance_dest) {
+				return a.distance_dest - b.distance_dest;
+			} else {
+				return 999999999999999;
+			}
+		});
 
-		// bikeApp.getShortestStation(shortestArray[0].station[0], shortestArray[0].station[1])
+		const shortestDistanceOriginStation = shortestDistanceOrigin[0];
+		const shortestDistanceDestinationStation = shortestDistanceDestination[0];
+
+		console.log('shortest origin', shortestDistanceOriginStation);
+		console.log('shortest destination', shortestDistanceDestinationStation);
+
 	}
 }
 //listens for when user submits info and stores that info to originAddress/destinationAddress/time
