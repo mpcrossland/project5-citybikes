@@ -24,6 +24,7 @@ body {
         color:#542437;
         text-transform: uppercase;
         margin: 15px;
+        padding-bottom: 30px;
       }
       section.modal{
         // display: none;
@@ -35,14 +36,15 @@ body {
         text-align: center;
         margin: 0 auto;
         border: 10px solid #C02942;
-        // background-color: rgba(246, 246, 246, 0.35);
-        background-color: #D95B43;
+        background-color: rgba(217, 91, 67, .9);
         border-radius: 20px;
         width: 40%;
         padding: 5px;
         p{
-          font-size: 1.3em;
-          line-height: .5em;
+          font-family:'Josefin Sans', sans-serif;
+          font-size: 1.7em;
+          line-height: .1em;
+          // letter-spacing: 2px;
         }
         }
         input[type=text]:focus {
@@ -54,12 +56,13 @@ body {
       input.controls{
         width: 400px;
         height: 50px;
-        background-color: #D95B43;
+        background-color: rgba(217, 91, 67, .01);
         border: none;
         border-bottom: 1px solid #C02942;
+        margin-bottom: 20px;
         &::-webkit-input-placeholder {
+                        text-align: center;
                         color: #C02942;
-                        font-family: 'Josefin Sans', sans-serif;
                         font-size: .9em;
                         text-transform: uppercase;
                     }
@@ -103,6 +106,7 @@ input[type=range]::-moz-range-thumb {
   background-image: url("../assets/images/bikeSVG.svg");
   background-size: cover;
   cursor: pointer;
+  
 }
 
 ::-moz-range-track {
