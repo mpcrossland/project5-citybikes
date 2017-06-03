@@ -19,7 +19,6 @@ input[type=reset],input[type=submit]{-webkit-appearance:button;cursor:pointer;}b
 
 body {
   font-family: 'Playfair Display', serif;
-  // border: 1px solid blue;
   background-image: url('../assets/NYC-Traffic/snapshots/NYC-Traffic.jpg');
     }
 
@@ -121,7 +120,7 @@ input[type=range]::-moz-range-thumb {
 //USER RESULTS------------------
 
 .trip-info{
-  display: none;
+  // display: none;
   font-size: 1em;
   z-index: 500;
   position: relative;
