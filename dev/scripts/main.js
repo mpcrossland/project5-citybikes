@@ -21,10 +21,10 @@ bikeApp.userDestinationLatLong =[];
 
 bikeApp.init = function() {
 	bikeApp.getCityBikes();
-	bikeApp.map();
 	bikeApp.userTime();
 	bikeApp.getLocations();
 	bikeApp.getUserInput();
+	initMap();
 };
 
 
@@ -66,19 +66,6 @@ bikeApp.getStationInfo = function() {
 			}
 		})
 	})
-}
-
-
-
-// this is used to initialize the map 
-var initMap = function() {
-	new google.maps.Map(document.getElementById('map'), {
-	  center: {lat: 43.70011, lng: -79.4163},
-	  zoom: 11
-	});
-}
-
-bikeApp.map = function initMap() {
 }
 
 //auto completes location using geocode and stores it to userOrigin/Destination
@@ -151,13 +138,12 @@ bikeApp.compareDistances = function() {
 		bikeApp.shortestDistanceOriginStation = shortestDistanceOrigin[0];
 		bikeApp.shortestDistanceDestinationStation = shortestDistanceDestination[0];
 		bikeApp.shortestDistanceOriginLatLong = new google.maps.LatLng(bikeApp.shortestDistanceOriginStation.station_latlong[0], bikeApp.shortestDistanceOriginStation.station_latlong[1]);
-		const shortestDistanceDestinationLatLong = new google.maps.LatLng(bikeApp.shortestDistanceDestinationStation.station_latlong[0], bikeApp.shortestDistanceDestinationStation.station_latlong[1]);
+		bikeApp.shortestDistanceDestinationLatLong = new google.maps.LatLng(bikeApp.shortestDistanceDestinationStation.station_latlong[0], bikeApp.shortestDistanceDestinationStation.station_latlong[1]);
 		//data to be used if there are no bike stations near user destination point
 		bikeApp.distanceBetweenOriginStationAndDestination = google.maps.geometry.spherical.computeDistanceBetween(bikeApp.shortestDistanceOriginLatLong, bikeApp.destinationLatLong);
 		bikeApp.distanceBetweenOriginStationAndDestination = (bikeApp.distanceBetweenOriginStationAndDestination / 1000).toFixed(2);
 		// need latitude and longitude value for shortest distance station to plug into this function
-		bikeApp.getDistanceDuration(bikeApp.shortestDistanceOriginLatLong, shortestDistanceDestinationLatLong);
-
+		bikeApp.getDistanceDuration(bikeApp.shortestDistanceOriginLatLong, bikeApp.shortestDistanceDestinationLatLong);
 	}
 }
 
@@ -276,7 +262,7 @@ bikeApp.displayResults = function (stationDistance, roundTripTravelTime, userRou
 	const originPoint = $("<p>").text(`Station closest to your origin: ${bikeApp.shortestDistanceOriginStation.station_name}, ${originDistanceKm}km away`);
 	const destinationPoint = $("<p>").text(`Station closest to your destination: ${bikeApp.shortestDistanceDestinationStation.station_name}, ${destinationDistanceKm}km away`);
 	const travelTime = $("<p>").text(`It will take you ${ Math.floor(stationDistance) } minutes to cycle from ${bikeApp.shortestDistanceOriginStation.station_name} to ${bikeApp.shortestDistanceDestinationStation.station_name}`);
-	const userHourlyPrice = $("<p>").text(`Trip Cost ${userHourlyPriceRoundTrip}`);
+	const userHourlyPrice = $("<p>").text(`Trip Cost $${userHourlyPriceRoundTrip}`);
 	$('.trip-info').empty();
 	if (destinationDistanceKm > 2) {
 	const noDestinationStation = $("<p>").text(`There are no stations near your destination point.`);
@@ -284,14 +270,57 @@ bikeApp.displayResults = function (stationDistance, roundTripTravelTime, userRou
 	const roundTripPrice = $('<p>').text(`Trip Cost $${userHourlyPriceRoundTrip}`); 
 	$(".trip-info").append(originPoint, noDestinationStation, originStationRoundTrip, roundTripPrice);
 	}
-	else 
-	$(".trip-info").append(originPoint, destinationPoint, travelTime, userHourlyPrice);
+	else {
+		$(".trip-info").append(originPoint, destinationPoint, travelTime, userHourlyPrice);
+	}
+	bikeApp.placeMarkers();
 }
 
+//this is used to initialize the map 
+var initMap = function() {
+	bikeApp.map = new google.maps.Map(document.getElementById('map'), {
+	  center: { lat: 43.70011, lng: -79.4163 },
+	  zoom: 11
+	});	
+}
 
+bikeApp.markersArray = [];
 
+bikeApp.placeMarkers = function() {
+	// var myLatLng = new google.maps.LatLng(45.1510532655634,-79.398193359375);
 
+	var markerOrigin = new google.maps.Marker({
+	    position: bikeApp.shortestDistanceOriginLatLong,
+	    animation: google.maps.Animation.DROP,
+	    zIndex: 8,
+	    map: bikeApp.map,
+	    title: 'Hello World!'
+	});
 
+	var markerDestination = new google.maps.Marker({
+	    position: bikeApp.shortestDistanceDestinationLatLong,
+	    animation: google.maps.Animation.DROP,
+	    zIndex: 8,
+	    map: bikeApp.map,
+	    title: 'Hello World!'
+	});
+
+	bikeApp.markersArray.push(markerOrigin, markerDestination);
+
+	bikeApp.markersArray.forEach((marker) => {
+		marker.setMap(bikeApp.map) // this function is somehow not working? showing up undefined
+	});
+
+	google.maps.event.addDomListener(window, 'load', initMap());
+}
+
+// more pseudocode 
+// toggle classes to hide and show map
+// button on the map to let the user try again (enter new locations)
+// put more information in markers so when user clicks on it will show the info
+// animations
+// make the site responsive
+// background image to be made a video - need to plugin javascript
 $(function() {
 	bikeApp.init();
 });
