@@ -5,41 +5,57 @@
 	  <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
 	<title>Document</title>
 	<link rel="stylesheet" href="public/styles/style.css">
+	<link href="https://fonts.googleapis.com/css?family=Josefin+Sans|Playfair+Display" rel="stylesheet">
 </head>
 <body>
-	<header>
-		<h1>CityBikes Toronto</h1>
-	</header>
+
+<div class="homepage-hero-module">
+    <div class="video-container">
+        <div class="filter"></div>
+        <video autoplay loop class="fillWidth">
+            <source src="dev/assets/NYC-Traffic/MP4/NYC-Traffic.mp4" type="video/mp4" />Your browser does not support the video tag. I suggest you upgrade your browser.
+            <source src="dev/assets/NYC-Traffic/WEBM/NYC-Traffic.webm" type="video/webm" />Your browser does not support the video tag. I suggest you upgrade your browser.
+        </video>
+        <div class="poster hidden">
+            <img src="dev/assets/NYC-Traffic/snapshots/NYC-Traffic.jpg" alt="">
+        </div>
+    </div>
+</div>
+
+
 
 	<main>
-		<section class="user-input">
-			<form action="" class="userInput">
-				<input id="origin-input" class="controls" type="text" placeholder="Enter a starting location" required>
+		<section class="modal">
+			<h1>CityBikes Toronto</h1>
+				<form action="" class="userInput">
+					<div class="textField">
+						<p>Enter a starting location</p>
+						<input id="origin-input" class="controls" type="text" placeholder="Start Location" required>
+						<p>Enter a destination location</p>
+						 <input id="destination-input" class="controls" type="text" placeholder="Destination Location" required>
+					</div>
+					<div class="slider"></div>
+						<label for="time"><p>Time (hrs)</label> <output for="time" id="hours">1</output></p>
+						 <input type="range" id="time" min="1" max="24" step="1" value="1" oninput="bikeApp.userTime(outputUpdate(value))">
+					 </div>
+					 <div class="submit">
+						<button class="btn btn-2 btn-2g" role="submit">Submit</button>
+					</div>
+				</form>
+			</section>
 
-				 <input id="destination-input" class="controls" type="text" placeholder="Enter a destination location" required>
-				<label for="time">Time (hrs)</label>
-				 <input type="range" id="time" min="1" max="24" step="1" value="1" oninput="bikeApp.userTime(outputUpdate(value))">
-				 <output for="time" id="hours">1</output>
 
-		
-				<button class="submit-button" role="submit">Submit</button>
-			</form>
-
-		</section>
+	</main>
 		<section class="user-result">
 			<div class="trip-info">
-				
+				<div id="map">
+				</div>
+				<p> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Velit repudiandae hic dolorem unde ut labore iusto qui harum cumque officiis delectus ea dolores pariatur, debitis excepturi repellat perspiciatis voluptas, consectetur, ducimus itaque voluptatibus eveniet dignissimos! Similique explicabo voluptatibus, consequuntur molestiae magnam id doloribus, recusandae sit neque laborum odio culpa autem ducimus eum molestias, dolor? Earum nam maxime porro magni, vel! Saepe cupiditate dolorum reiciendis hic consequuntur excepturi non debitis, eligendi molestiae obcaecati possimus! Nam quo non placeat, doloremque, debitis, reiciendis atque rem dolorum quis fuga fugit? Sequi soluta quo reprehenderit tempora eligendi, perferendis nihil quis quibusdam vitae, ut reiciendis optio.</p>
 			</div>
 
-	  	  <div id="map"></div>
-
 	  	 </section>
-	</main>
-
 	<footer>
 	</footer>
-	
-
 
 	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>	
 	<script src="dev/scripts/main.js"></script>
