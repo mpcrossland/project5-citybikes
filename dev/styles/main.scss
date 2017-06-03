@@ -13,23 +13,79 @@ input[type=reset],input[type=submit]{-webkit-appearance:button;cursor:pointer;}b
 
 /* Always set the map height explicitly to define the size of the div
  * element that contains the map. */
-#map {
-  height: 900px;
-}
+
 /* Optional: Makes the sample page fill the window. */
-html, body {
-  height: 90%;
-  width: 70%;
-  margin: 0;
- } 
+
+
+body {
+  font-family: 'Playfair Display', serif;
+  // border: 1px solid blue;
+  background-image: url('../assets/NYC-Traffic/snapshots/NYC-Traffic.jpg');
+    }
+
+    main{
+      h1{
+        font-family: 'Josefin Sans', sans-serif;
+        font-size: 3em;
+        color:#542437;
+        text-transform: uppercase;
+        margin: 15px;
+        padding-bottom: 30px;
+      }
+      section.modal{
+        // display: none;
+        font-size: 1.2em;
+        color: white;
+        z-index: 500;
+        position: relative;
+        top: 100px;
+        text-align: center;
+        margin: 0 auto;
+        border: 10px solid #C02942;
+        background-color: rgba(217, 91, 67, .9);
+        border-radius: 20px;
+        width: 40%;
+        padding: 5px;
+        p{
+          font-family:'Josefin Sans', sans-serif;
+          font-size: 1.7em;
+          line-height: .1em;
+          // letter-spacing: 2px;
+        }
+        }
+        input[type=text]:focus {
+            background-color: #E89D8E;
+            border: none;
+            color: black;
+
+        }
+      input.controls{
+        width: 400px;
+        height: 50px;
+        background-color: rgba(217, 91, 67, .01);
+        border: none;
+        border-bottom: 1px solid #C02942;
+        margin-bottom: 20px;
+        &::-webkit-input-placeholder {
+                        text-align: center;
+                        color: #C02942;
+                        font-size: .9em;
+                        text-transform: uppercase;
+                    }
+
+      }
+    section.user-result{
+      // display: none;
+    }
+ }
 
  // Slider Styles
  input[type=range] {
   -webkit-appearance: none;
   margin: 18px 0;
-  width: 20%;
-  background: #D95B43;
-  height: 12px;
+  width: 80%;
+  background: #C02942;
+  height: 10px;
   border-radius: 5px;
 }
 
@@ -38,10 +94,10 @@ input[type=range]:focus {
 }
 
 input[type=range]::-webkit-slider-thumb {
-  height: 36px;
-  width: 36px;
+  height: 50px;
+  width: 73px;
   border-radius: 50%;
-  background-image: url("https://image.flaticon.com/icons/png/128/130/130276.png");
+  background-image: url("../assets/images/bikeSVG.svg");
   background-size: cover;
   cursor: pointer;
   -webkit-appearance: none;
@@ -50,16 +106,137 @@ input[type=range]::-webkit-slider-thumb {
 input[type=range]::-moz-range-thumb {
   border: none;
   background-color: transparent;
-  height: 36px;
-  width: 36px;
+  height: 50px;
+  width: 73px;
   border-radius: 50%;
-  background-image: url("https://image.flaticon.com/icons/png/128/130/130276.png");
+  background-image: url("../assets/images/bikeSVG.svg");
   background-size: cover;
   cursor: pointer;
+  
 }
 
 ::-moz-range-track {
     background: #D95B43;
 }
+//USER RESULTS------------------
+
+.trip-info{
+  display: none;
+  font-size: 1em;
+  z-index: 500;
+  position: relative;
+  top: 100px;
+  text-align: center;
+  margin: 0 auto;
+  border: 10px solid #C02942;
+  // background-color: rgba(246, 246, 246, 0.35);
+  background-color: #D95B43;
+  border-radius: 20px;
+  width: 40%;
+  padding: 20px;
+
+}
+  #map {
+    height: 400px;
+    width: 600px;
+    margin: 0 auto;
+}
 
 
+
+
+//button styling---------------------------
+.color-2 {
+  background: #53777A;
+}
+.btn {
+  border: none;
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+  background: none;
+  cursor: pointer;
+  padding: 15px 50px;
+  display: inline-block;
+  margin: 15px 30px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 700;
+  outline: none;
+  position: relative;
+  -webkit-transition: all 0.3s;
+  -moz-transition: all 0.3s;
+  transition: all 0.3s;
+}
+.btn:after {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  -webkit-transition: all 0.3s;
+  -moz-transition: all 0.3s;
+  transition: all 0.3s;
+}
+.btn-2 {
+  background: #53777A;
+  color: #fff;
+  box-shadow: 0 6px #3a5456;
+  -webkit-transition: none;
+  -moz-transition: none;
+  transition: none;
+}
+.btn-2g {
+  border-radius: 40px;
+}
+
+.btn-2g:hover {
+  box-shadow: 0 4px #3a5456;
+  top: 2px;
+}
+
+.btn-2g:active {
+  box-shadow: 0 0 #ab3c3c;
+  top: 6px;
+}
+
+//VIDEO BLEED STYLES --------------------
+.homepage-hero-module {
+    border-right: none;
+    border-left: none;
+    position: relative;
+}
+.no-video .video-container video,
+.touch .video-container video {
+    display: none;
+}
+.no-video .video-container .poster,
+.touch .video-container .poster {
+    display: block !important;
+}
+.video-container {
+    position: relative;
+    bottom: 0%;
+    left: 0%;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+    background: #000;
+}
+.video-container .poster img {
+    width: 100%;
+    bottom: 0;
+    position: absolute;
+}
+.video-container .filter {
+    z-index: 100;
+    position: absolute;
+    background: rgba(0, 0, 0, 0.4);
+    width: 100%;
+}
+.video-container video {
+    position: absolute;
+    z-index: 0;
+    bottom: 0;
+}
+.video-container video.fillWidth {
+    width: 100%;
+}
