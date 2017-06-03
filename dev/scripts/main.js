@@ -292,9 +292,6 @@ bikeApp.displayResults = function (stationDistance, roundTripTravelTime, userRou
 
 
 
-
-
-
 $(function() {
 	bikeApp.init();
 });
