@@ -306,6 +306,7 @@ bikeApp.placeMarkers = function() {
 	});
 
 
+<<<<<<< HEAD
 	bikeApp.markersArray.push(markerOrigin, markerDestination);
 
 	bikeApp.markersArray.forEach((marker) => {
@@ -323,6 +324,8 @@ bikeApp.placeMarkers = function() {
 // make the site responsive
 // background image to be made a video - need to plugin javascript
 
+=======
+>>>>>>> d7fbc414b9f7907e0772b20bf4fd6aaae83a279b
 $(function() {
 	bikeApp.init();
 });
