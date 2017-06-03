@@ -293,6 +293,7 @@ bikeApp.placeMarkers = function() {
 	    position: bikeApp.shortestDistanceOriginLatLong,
 	    animation: google.maps.Animation.DROP,
 	    zIndex: 8,
+	    map: bikeApp.map,
 	    title: 'Hello World!'
 	});
 
@@ -300,6 +301,7 @@ bikeApp.placeMarkers = function() {
 	    position: bikeApp.shortestDistanceDestinationLatLong,
 	    animation: google.maps.Animation.DROP,
 	    zIndex: 8,
+	    map: bikeApp.map,
 	    title: 'Hello World!'
 	});
 
@@ -307,11 +309,19 @@ bikeApp.placeMarkers = function() {
 	bikeApp.markersArray.push(markerOrigin, markerDestination);
 
 	bikeApp.markersArray.forEach((marker) => {
-		marker.setMap(bikeApp.map)
+		marker.setMap(bikeApp.map) // this function is somehow not working? showing up undefined
 	});
 
 	google.maps.event.addDomListener(window, 'load', initMap());
 }
+
+// more pseudocode 
+// toggle classes to hide and show map
+// button on the map to let the user try again (enter new locations)
+// put more information in markers so when user clicks on it will show the info
+// animations
+// make the site responsive
+// background image to be made a video - need to plugin javascript
 
 $(function() {
 	bikeApp.init();
