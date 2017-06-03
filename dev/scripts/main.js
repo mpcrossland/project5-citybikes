@@ -231,9 +231,9 @@ bikeApp.travelTimeDifference = function (userTime, distanceDuration, roundTripTi
 
 	if (distanceDifference < 0) {
 		//if user time input is less than trip destination time, prompt alert
-		alert(`You have selected ${bikeApp.time} hours for your trip, but it will take you ${ Math.floor(distanceDurationMinutes) } minutes to get to your destination. Please adjust your trip time`);
+		alert(`You have selected ${bikeApp.time} hour(s) for your trip, but it will take you ${ Math.floor(distanceDurationMinutes) } minutes to get to your destination. Please adjust your trip time. 🚲`);
 	} else if (distanceDifferenceRoundTrip < 0) {
-		alert(`You have selected ${bikeApp.time} hours for your trip, but there are no stations nearby your destination and it will take you ${ Math.floor(roundTripTime) } minutes for the round trip. Please adjust your travel time`);
+		alert(`You have selected ${bikeApp.time} hour(s) for your trip, but there are no stations nearby your destination and it will take you ${ Math.floor(roundTripTime) } minutes for the round trip. Please adjust your travel time. 🚲`);
 	} else {
 		bikeApp.getCityBikesPricing(bikeApp.time, distanceDurationMinutes, roundTripTime);
 
@@ -249,29 +249,29 @@ bikeApp.getCityBikesPricing = function(userTime, distanceDurationMinutes, roundT
 	.then(function(res) {
 		//24 hour pricing divided by 24 to obtain hourly rate
 		const hourlyPrice = (res.data.plans[1].price) / 24;
+		//multiply user hours to hourly price
 		const userHourlyPrice = (userTime * hourlyPrice).toFixed(2);
+		console.log(userHourlyPrice, "should be 0.66")
 		bikeApp.displayResults(distanceDurationMinutes, roundTripTime, userHourlyPrice, hourlyPrice); 
 	});
 };	
 
 
-bikeApp.displayResults = function (stationDistance, roundTripTravelTime, userRoundTripPrice, userPrice) {
+bikeApp.displayResults = function (stationDistance, roundTripTravelTime, userFinalPrice, pricePerHour) {
 	const originDistanceKm = (bikeApp.shortestDistanceOriginStation.distance_origin / 1000).toFixed(2);
 	const destinationDistanceKm = (bikeApp.shortestDistanceDestinationStation.distance_dest / 1000).toFixed(2);
-	const userHourlyPriceRoundTrip = ((roundTripTravelTime / 60) * userPrice).toFixed(2);
 	const originPoint = $("<p>").text(`Station closest to your origin: ${bikeApp.shortestDistanceOriginStation.station_name}, ${originDistanceKm}km away`);
 	const destinationPoint = $("<p>").text(`Station closest to your destination: ${bikeApp.shortestDistanceDestinationStation.station_name}, ${destinationDistanceKm}km away`);
 	const travelTime = $("<p>").text(`It will take you ${ Math.floor(stationDistance) } minutes to cycle from ${bikeApp.shortestDistanceOriginStation.station_name} to ${bikeApp.shortestDistanceDestinationStation.station_name}`);
-	const userHourlyPrice = $("<p>").text(`Trip Cost $${userHourlyPriceRoundTrip}`);
+	const userPrice = $("<p>").text(`Trip Cost $${userFinalPrice}`);
 	$('.trip-info').empty();
 	if (destinationDistanceKm > 2) {
 	const noDestinationStation = $("<p>").text(`There are no stations near your destination point.`);
 	const originStationRoundTrip = $("<p>").text(`It will take you ${roundTripTravelTime} minutes to get to your destination and back`);
-	const roundTripPrice = $('<p>').text(`Trip Cost $${userHourlyPriceRoundTrip}`); 
-	$(".trip-info").append(originPoint, noDestinationStation, originStationRoundTrip, roundTripPrice);
+	$(".trip-info").append(originPoint, noDestinationStation, originStationRoundTrip, userPrice);
 	}
 	else {
-		$(".trip-info").append(originPoint, destinationPoint, travelTime, userHourlyPrice);
+		$(".trip-info").append(originPoint, destinationPoint, travelTime, userPrice);
 	}
 	bikeApp.placeMarkers();
 }
@@ -290,7 +290,7 @@ bikeApp.placeMarkers = function() {
 	// var myLatLng = new google.maps.LatLng(45.1510532655634,-79.398193359375);
 
 	var markerOrigin = new google.maps.Marker({
-	    position: bikeApp.shortestDistanceOriginLatLong,
+	    position: { lat: 43.70011, lng: -79.4163 },
 	    animation: google.maps.Animation.DROP,
 	    zIndex: 8,
 	    map: bikeApp.map,
@@ -304,6 +304,7 @@ bikeApp.placeMarkers = function() {
 	    map: bikeApp.map,
 	    title: 'Hello World!'
 	});
+	    console.log(bikeApp.shortestDistanceDestinationLatLong, "lat long shortest")
 
 	bikeApp.markersArray.push(markerOrigin, markerDestination);
 
@@ -311,7 +312,7 @@ bikeApp.placeMarkers = function() {
 		marker.setMap(bikeApp.map) // this function is somehow not working? showing up undefined
 	});
 
-	google.maps.event.addDomListener(window, 'load', initMap());
+	// google.maps.event.addDomListener(window, 'load', initMap());
 }
 
 // more pseudocode 
