@@ -113,11 +113,11 @@ bikeApp.compareDistances = function() {
 		console.log(bikeApp.userOriginLatLong);
 		console.log(bikeApp.userDestinationLatLong);
 		let originLatLong = new google.maps.LatLng(bikeApp.userOriginLatLong[0], bikeApp.userOriginLatLong[1]);
-		let destinationLatLong = new google.maps.LatLng(bikeApp.userDestinationLatLong[0], bikeApp.userDestinationLatLong[1]);
+		bikeApp.destinationLatLong = new google.maps.LatLng(bikeApp.userDestinationLatLong[0], bikeApp.userDestinationLatLong[1]);
 		bikeApp.cityBikesRefined.forEach((station) => {
 			let cityBikesLatLong = new google.maps.LatLng(station.latLong[0], station.latLong[1]);
 			let distanceBetweenOrigin = google.maps.geometry.spherical.computeDistanceBetween(originLatLong, cityBikesLatLong);
-			let distanceBetweenDestination = google.maps.geometry.spherical.computeDistanceBetween(destinationLatLong, cityBikesLatLong);
+			let distanceBetweenDestination = google.maps.geometry.spherical.computeDistanceBetween(bikeApp.destinationLatLong, cityBikesLatLong);
 			distanceOriginInfo.push({
 				station_id: station.stations.station_id,
 				station_name: station.stations.name,
@@ -151,14 +151,13 @@ bikeApp.compareDistances = function() {
 
 		bikeApp.shortestDistanceOriginStation = shortestDistanceOrigin[0];
 		bikeApp.shortestDistanceDestinationStation = shortestDistanceDestination[0];
-		const shortestDistanceOriginLatLong = new google.maps.LatLng(bikeApp.shortestDistanceOriginStation.station_latlong[0], bikeApp.shortestDistanceOriginStation.station_latlong[1]);
+		bikeApp.shortestDistanceOriginLatLong = new google.maps.LatLng(bikeApp.shortestDistanceOriginStation.station_latlong[0], bikeApp.shortestDistanceOriginStation.station_latlong[1]);
 		const shortestDistanceDestinationLatLong = new google.maps.LatLng(bikeApp.shortestDistanceDestinationStation.station_latlong[0], bikeApp.shortestDistanceDestinationStation.station_latlong[1]);
 		//data to be used if there are no bike stations near user destination point
-		bikeApp.distanceBetweenOriginStationAndDestination = google.maps.geometry.spherical.computeDistanceBetween(shortestDistanceOriginLatLong, destinationLatLong);
+		bikeApp.distanceBetweenOriginStationAndDestination = google.maps.geometry.spherical.computeDistanceBetween(bikeApp.shortestDistanceOriginLatLong, bikeApp.destinationLatLong);
 		bikeApp.distanceBetweenOriginStationAndDestination = (bikeApp.distanceBetweenOriginStationAndDestination / 1000).toFixed(2);
 		// need latitude and longitude value for shortest distance station to plug into this function
-		bikeApp.getDistanceDuration(shortestDistanceOriginLatLong, shortestDistanceDestinationLatLong);
-		bikeApp.getDistanceDurationRoundTrip(shortestDistanceOriginLatLong, destinationLatLong);
+		bikeApp.getDistanceDuration(bikeApp.shortestDistanceOriginLatLong, shortestDistanceDestinationLatLong);
 
 	}
 }
@@ -203,9 +202,9 @@ bikeApp.getDistanceDuration = function(stationOrigin, stationDestination) {
 	    if (status !== google.maps.DistanceMatrixStatus.OK) {
 	        console.log('Error:', status);
 	    } else {
-	    	const stationTravelTime = response.rows[0].elements[0].duration.value; //receiving travel time in seconds
-	    	console.log(stationTravelTime);
-   			bikeApp.travelTimeDifference(bikeApp.time, stationTravelTime);
+	    	bikeApp.stationTravelTime = response.rows[0].elements[0].duration.value; //receiving travel time in seconds
+	    	bikeApp.getDistanceDurationRoundTrip(bikeApp.shortestDistanceOriginLatLong, bikeApp.destinationLatLong);
+
 	    }
 	});
 }
@@ -225,6 +224,7 @@ bikeApp.getDistanceDurationRoundTrip = function(stationOrigin, userDestination) 
 	        console.log('Error:', status);
 	    } else {
 	    	bikeApp.roundTripTravelTime = Math.floor(((response.rows[0].elements[0].duration.value) / 60) * 2); //converting roundtrip travel time to minutes ( * 2 as it is a round trip)
+	    	bikeApp.travelTimeDifference(bikeApp.time, bikeApp.stationTravelTime);
 	    }
 	});
 }
@@ -241,12 +241,12 @@ bikeApp.travelTimeDifference = function (userTime, distanceDuration) {
 		//if user time input is less than trip destination time, prompt alert
 		alert(`You have selected ${bikeApp.time} hours for your trip, but it will take you ${ Math.floor(distanceDurationMinutes) } minutes to get to your destination. Please adjust your trip time`);
 	} else {
-		bikeApp.displayResults(distanceDurationMinutes); 
+		bikeApp.displayResults(distanceDurationMinutes, bikeApp.roundTripTravelTime); 
 	}
 }	
 
 
-bikeApp.displayResults = function (stationDistance) {
+bikeApp.displayResults = function (stationDistance, roundTripTravelTime) {
 	const originDistanceKm = (bikeApp.shortestDistanceOriginStation.distance_origin / 1000).toFixed(2);
 	const destinationDistanceKm = (bikeApp.shortestDistanceDestinationStation.distance_dest / 1000).toFixed(2);
 	const originPoint = $("<p>").text(`Station closest to your origin: ${bikeApp.shortestDistanceOriginStation.station_name}, ${originDistanceKm}km away`);
