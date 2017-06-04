@@ -36,9 +36,9 @@ main {
   position: absolute;
   top: 0;
   width: 100%;
-  height: 100vh;
+  height: 100%;
   z-index: 200;
-  }
+}  
 
   form.user-input{
     display: none;
@@ -50,7 +50,6 @@ main {
     color:#542437;
     text-transform: uppercase;
     margin: 15px;
-    padding-bottom: 30px;
   }
   section.modal{
     // display: none;
@@ -65,7 +64,7 @@ main {
     border-radius: 20px;
     width: 50%;
     padding: 5px;
-    p, label {
+    label {
       font-family:'Josefin Sans', sans-serif;
       font-size: 1.7em;
     }
@@ -154,7 +153,13 @@ input[type=range]::-moz-range-thumb {
   margin: 0 auto;
   // background-color: rgba(246, 246, 246, 0.35);
   border-radius: 20px;
-  padding: 20px;
+  padding: 5px;
+  padding-top: 0;
+  	p {
+  		margin-top: 0;
+  		font-size: 1em;
+
+  	}
 
 }
   #map {
