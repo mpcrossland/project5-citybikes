@@ -167,8 +167,7 @@ bikeApp.getUserInput = function (){
 		$(".userInput").toggleClass("hidden fadeOutUp");
 		$(".user-result").show();
 		initMap();
-	})
-
+	});
 }
 
 //turns the location in to lat/lon values
@@ -194,7 +193,6 @@ bikeApp.getDistanceDuration = function(stationOrigin, stationDestination) {
 	    travelMode: google.maps.TravelMode.BICYCLING,
 	    unitSystem: google.maps.UnitSystem.METRIC,
 	    durationInTraffic: true
-
 	},
 	function (response, status) {
 	    if (status !== google.maps.DistanceMatrixStatus.OK) {
@@ -205,8 +203,6 @@ bikeApp.getDistanceDuration = function(stationOrigin, stationDestination) {
 	    }
 	});
 }
-
-
 
 bikeApp.getDistanceDurationRoundTrip = function(stationOrigin, userDestination) {
 	var distanceService = new google.maps.DistanceMatrixService();
@@ -299,16 +295,13 @@ bikeApp.placeMarkers = function() {
 	var markerOrigin = new google.maps.Marker({
 	    position: bikeApp.shortestDistanceOriginLatLong,
 	    map: map,
-	    title: 'origin marker',
-	    // icon: customIcon
+	    title: 'origin marker'
 	});
-	    console.log(customIcon, "icon");
 
 	var markerDestination = new google.maps.Marker({
 	    position: bikeApp.shortestDistanceDestinationLatLong,
 	    map: map,
-	    title: 'destination marker',
-	    // icon: customIcon
+	    title: 'destination marker'
 	});
 }
 
