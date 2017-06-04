@@ -302,8 +302,6 @@ bikeApp.placeMarkers = function() {
 	    position: bikeApp.shortestDistanceDestinationLatLong,
 	    map: map,
 	    title: 'destination marker'
-	    // icon: customIcon
-
 	});
 }
 
@@ -376,7 +374,6 @@ $(function() {
 	    scaleBannerVideoSize('.video-container video');
 	});
 });
-
 
 
 
