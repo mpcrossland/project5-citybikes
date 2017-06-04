@@ -24,7 +24,6 @@ bikeApp.init = function() {
 	bikeApp.userTime();
 	bikeApp.getLocations();
 	bikeApp.getUserInput();
-	initMap();
 };
 
 
@@ -165,9 +164,11 @@ bikeApp.getUserInput = function (){
 		bikeApp.getUserLatLong(bikeApp.setUserOriginLatLong, originAddress);
 		bikeApp.getUserLatLong(bikeApp.setUserDestinationLatLong, destinationAddress);
 
-		$(".modal").toggleClass("hidden fadeOutUp");
-		$(".modal2").toggleClass("show");
+		$(".userInput").toggleClass("hidden fadeOutUp");
+		$(".user-result").show();
+		initMap();
 	})
+
 }
 
 //turns the location in to lat/lon values
@@ -307,27 +308,9 @@ bikeApp.placeMarkers = function() {
 	    position: bikeApp.shortestDistanceDestinationLatLong,
 	    map: map,
 	    title: 'destination marker',
-	    icon: customIcon
+	    // icon: customIcon
 	});
 }
-
-
-$( document ).ready(function() {
-
-    scaleVideoContainer();
-
-    initBannerVideoSize('.video-container .poster img');
-    initBannerVideoSize('.video-container .filter');
-    initBannerVideoSize('.video-container video');
-
-    $(window).on('resize', function() {
-        scaleVideoContainer();
-        scaleBannerVideoSize('.video-container .poster img');
-        scaleBannerVideoSize('.video-container .filter');
-        scaleBannerVideoSize('.video-container video');
-    });
-
-});
 
 function scaleVideoContainer() {
 
@@ -385,6 +368,18 @@ function scaleBannerVideoSize(element){
 // background image to be made a video - need to plugin javascript
 $(function() {
 	bikeApp.init();
+	scaleVideoContainer();
+
+	initBannerVideoSize('.video-container .poster img');
+	initBannerVideoSize('.video-container .filter');
+	initBannerVideoSize('.video-container video');
+
+	$(window).on('resize', function() {
+	    scaleVideoContainer();
+	    scaleBannerVideoSize('.video-container .poster img');
+	    scaleBannerVideoSize('.video-container .filter');
+	    scaleBannerVideoSize('.video-container video');
+	});
 });
 
 
