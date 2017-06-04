@@ -36,88 +36,10 @@ main {
   position: absolute;
   top: 0;
   width: 100%;
-  height: 100vh;
+  height: 100%;
   z-index: 200;
-  }
+}  
 
-<<<<<<< HEAD
-    main{
-      position: absolute;
-      top:0;
-      width: 100%;
-      z-index: 200;
-      form.user-input{
-        display: none;
-        // border: 1px solid blue;
-      }
-      h1{
-        font-family: 'Josefin Sans', sans-serif;
-        font-size: 3em;
-        color:#542437;
-        text-transform: uppercase;
-        margin: 15px;
-        padding-bottom: 30px;
-      }
-      section.modal{
-        font-size: 1.2em;
-        color: white;
-        position: relative;
-        top: 100px;
-        text-align: center;
-        margin: 0 auto;
-        border: 10px solid #C02942;
-        background-color: rgba(217, 91, 67, .9);
-        border-radius: 20px;
-        width: 40%;
-        padding: 5px;
-        p{
-          font-family:'Josefin Sans', sans-serif;
-          font-size: 1.7em;
-          line-height: .1em;
-          // letter-spacing: 2px;
-        }
-        }
-        input[type=text]:focus {
-            background-color: #E89D8E;
-            border: none;
-            color: black;
-
-        }
-      input.controls{
-        width: 95%;
-        height: 50px;
-        background-color: rgba(217, 91, 67, .01);
-        border: none;
-        border-bottom: 1px solid #C02942;
-        margin-bottom: 20px;
-        &::-webkit-input-placeholder {
-                        text-align: center;
-                        color: #C02942;
-                        font-size: .9em;
-                        text-transform: uppercase;
-                    }
-
-      }
-
-      .modal2{
-        font-size: 1.2em;
-        color: white;
-        position: relative;
-        top: 100px;
-        text-align: center;
-        margin: 0 auto;
-        border: 10px solid #C02942;
-        background-color: rgba(217, 91, 67, .9);
-        border-radius: 20px;
-        width: 45%;
-        padding: 5px;
-      }
-    section.user-result{
-      font-size: .8em;
-    }
-
- }
-=======
   form.user-input{
     display: none;
     // border: 1px solid blue;
@@ -128,7 +50,6 @@ main {
     color:#542437;
     text-transform: uppercase;
     margin: 15px;
-    padding-bottom: 30px;
   }
   section.modal{
     // display: none;
@@ -143,7 +64,7 @@ main {
     border-radius: 20px;
     width: 50%;
     padding: 5px;
-    p, label {
+    label {
       font-family:'Josefin Sans', sans-serif;
       font-size: 1.7em;
     }
@@ -171,7 +92,6 @@ section.user-result{
   font-size: .8em;
 }
 }
->>>>>>> a9962cad48c43e5b63ba270a30196ea71d13a685
 
  // Slider Styles
  input[type=range] {
@@ -213,7 +133,7 @@ input[type=range]::-moz-range-thumb {
     background: #D95B43;
 }
 
-// to toggle between on "submit"
+//to toggle between on "submit"
 .hidden {
 	display: none;
 }
@@ -233,16 +153,19 @@ input[type=range]::-moz-range-thumb {
   margin: 0 auto;
   // background-color: rgba(246, 246, 246, 0.35);
   border-radius: 20px;
-  padding: 20px;
+  padding: 5px;
+  padding-top: 0;
+  	p {
+  		margin-top: 0;
+  		font-size: 1em;
+
+  	}
 
 }
   #map {
-    height: 400px;
-    width: 90%;
-    margin: 0 auto;	
-    img {
-    	margin: -1px;
-    }	
+    height: 450px;
+    width: 100%;
+    margin: 0 auto;
 }
 
 
@@ -343,21 +266,4 @@ input[type=range]::-moz-range-thumb {
 }
 .video-container video.fillWidth {
     width: 100%;
-}
-
-//media queries
-
-/* Portrait tablet and small desktops */
-@media (max-width: 940px) {
-	.modal {
-		width: 70%;
-	}
-}
-
-/* Landscape phone to portrait tablet */
-@media (max-width: 768px) {
-}
-
-/* Landscape phones and down */
-@media (max-width: 480px) {
 }

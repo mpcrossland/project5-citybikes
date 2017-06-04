@@ -163,15 +163,10 @@ bikeApp.getUserInput = function (){
 		bikeApp.time = $('#time').val();
 		bikeApp.getUserLatLong(bikeApp.setUserOriginLatLong, originAddress);
 		bikeApp.getUserLatLong(bikeApp.setUserDestinationLatLong, destinationAddress);
-<<<<<<< HEAD
-		$(".modal").toggleClass("hidden fadeOutUp");
-		$(".modal2").toggleClass("show");
-=======
 
 		$(".userInput").toggleClass("hidden fadeOutUp");
 		$(".user-result").show();
 		initMap();
->>>>>>> a9962cad48c43e5b63ba270a30196ea71d13a685
 	})
 
 }
@@ -300,22 +295,19 @@ var initMap = function() {
 }
 
 bikeApp.placeMarkers = function() {
- 	// var customIcon = {
- 	// 	url: '../../dev/assets/images/citybike-marker.svg',
- 	// }
-   var customIcon = 'https://image.flaticon.com/icons/png/128/34/34468.png'
-
+	// var customIcon = 'https://image.flaticon.com/icons/png/128/34/34468.png'
 	var markerOrigin = new google.maps.Marker({
 	    position: bikeApp.shortestDistanceOriginLatLong,
 	    map: map,
-	    title: 'origin marker',
-	    icon: customIcon
+	    title: 'origin marker'
+	    // icon: customIcon
 	});
+	    console.log(customIcon, "icon");
 
 	var markerDestination = new google.maps.Marker({
 	    position: bikeApp.shortestDistanceDestinationLatLong,
 	    map: map,
-	    title: 'destination marker',
+	    title: 'destination marker'
 	    // icon: customIcon
 	});
 }
@@ -389,8 +381,6 @@ $(function() {
 	    scaleBannerVideoSize('.video-container video');
 	});
 });
-
-
 
 
 
