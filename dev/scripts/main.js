@@ -164,8 +164,7 @@ bikeApp.getUserInput = function (){
 		bikeApp.time = $('#time').val();
 		bikeApp.getUserLatLong(bikeApp.setUserOriginLatLong, originAddress);
 		bikeApp.getUserLatLong(bikeApp.setUserDestinationLatLong, destinationAddress);
-		$(".userInput").toggleClass("hidden fadeOutUp");
-		$(".user-result").toggleClass("show");
+		// $(".userInput").toggleClass("hidden");
 	})
 }
 
@@ -293,7 +292,12 @@ var initMap = function() {
 }
 
 bikeApp.placeMarkers = function() {
-	var customIcon = 'https://image.flaticon.com/icons/png/128/34/34468.png'
+	var customIcon = {
+		url: '../../dev/assets/images/citybike-marker.svg',
+		size: new google.maps.Size(35, 200),
+		optimized: false
+
+	}	
 	var markerOrigin = new google.maps.Marker({
 	    position: bikeApp.shortestDistanceOriginLatLong,
 	    map: map,

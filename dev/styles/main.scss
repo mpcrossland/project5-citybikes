@@ -76,9 +76,6 @@ body {
                     }
 
       }
-    section.user-result{
-      display: none;
-    }
  }
 
  // Slider Styles
@@ -121,7 +118,7 @@ input[type=range]::-moz-range-thumb {
     background: #D95B43;
 }
 
-//to toggle between on "submit"
+// to toggle between on "submit"
 .hidden {
 	display: none;
 }
@@ -151,7 +148,10 @@ input[type=range]::-moz-range-thumb {
   #map {
     height: 400px;
     width: 600px;
-    margin: 0 auto;
+    margin: 0 auto;		
+    	img {
+    		 margin: 0px;
+    	}
 }
 
 
