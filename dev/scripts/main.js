@@ -24,7 +24,6 @@ bikeApp.init = function() {
 	bikeApp.userTime();
 	bikeApp.getLocations();
 	bikeApp.getUserInput();
-	initMap();
 };
 
 
@@ -164,9 +163,17 @@ bikeApp.getUserInput = function (){
 		bikeApp.time = $('#time').val();
 		bikeApp.getUserLatLong(bikeApp.setUserOriginLatLong, originAddress);
 		bikeApp.getUserLatLong(bikeApp.setUserDestinationLatLong, destinationAddress);
+<<<<<<< HEAD
 		$(".modal").toggleClass("hidden fadeOutUp");
 		$(".modal2").toggleClass("show");
+=======
+
+		$(".userInput").toggleClass("hidden fadeOutUp");
+		$(".user-result").show();
+		initMap();
+>>>>>>> a9962cad48c43e5b63ba270a30196ea71d13a685
 	})
+
 }
 
 //turns the location in to lat/lon values
@@ -309,27 +316,9 @@ bikeApp.placeMarkers = function() {
 	    position: bikeApp.shortestDistanceDestinationLatLong,
 	    map: map,
 	    title: 'destination marker',
-	    icon: customIcon
+	    // icon: customIcon
 	});
 }
-
-
-$( document ).ready(function() {
-
-    scaleVideoContainer();
-
-    initBannerVideoSize('.video-container .poster img');
-    initBannerVideoSize('.video-container .filter');
-    initBannerVideoSize('.video-container video');
-
-    $(window).on('resize', function() {
-        scaleVideoContainer();
-        scaleBannerVideoSize('.video-container .poster img');
-        scaleBannerVideoSize('.video-container .filter');
-        scaleBannerVideoSize('.video-container video');
-    });
-
-});
 
 function scaleVideoContainer() {
 
@@ -387,6 +376,18 @@ function scaleBannerVideoSize(element){
 // background image to be made a video - need to plugin javascript
 $(function() {
 	bikeApp.init();
+	scaleVideoContainer();
+
+	initBannerVideoSize('.video-container .poster img');
+	initBannerVideoSize('.video-container .filter');
+	initBannerVideoSize('.video-container video');
+
+	$(window).on('resize', function() {
+	    scaleVideoContainer();
+	    scaleBannerVideoSize('.video-container .poster img');
+	    scaleBannerVideoSize('.video-container .filter');
+	    scaleBannerVideoSize('.video-container video');
+	});
 });
 
 
