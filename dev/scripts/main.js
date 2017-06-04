@@ -283,7 +283,7 @@ var map;
 var initMap = function() {
 	map = new google.maps.Map(document.getElementById('map'), {
 	  center: { lat: 43.70011, lng: -79.4163 },
-	  zoom: 11
+	  zoom: 12
 	});	
 	if (bikeApp.shortestDistanceDestinationLatLong !== undefined && bikeApp.shortestDistanceOriginLatLong !== undefined) {
 		bikeApp.placeMarkers();
@@ -291,23 +291,24 @@ var initMap = function() {
 }
 
 bikeApp.placeMarkers = function() {
-
+	var customIcon = 'https://image.flaticon.com/icons/png/128/34/34468.png'
 	var markerOrigin = new google.maps.Marker({
 	    position: bikeApp.shortestDistanceOriginLatLong,
-	    animation: google.maps.Animation.DROP,
-	    zIndex: 8,
 	    map: map,
-	    title: 'Hello World!'
+	    title: 'origin marker',
+	    icon: customIcon
 	});
+	    console.log(customIcon, "icon");
 
 	var markerDestination = new google.maps.Marker({
 	    position: bikeApp.shortestDistanceDestinationLatLong,
-	    animation: google.maps.Animation.DROP,
-	    zIndex: 8,
 	    map: map,
-	    title: 'Hello World!'
+	    title: 'destination marker',
+	    icon: customIcon
 	});
 }
+
+
 
 // more pseudocode 
 // toggle classes to hide and show map
@@ -320,3 +321,15 @@ $(function() {
 	bikeApp.init();
 });
 
+
+
+
+
+
+
+
+
+
+
+
+$

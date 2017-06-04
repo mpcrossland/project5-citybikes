@@ -117,6 +117,16 @@ input[type=range]::-moz-range-thumb {
 ::-moz-range-track {
     background: #D95B43;
 }
+
+//to toggle between on "submit"
+.hidden {
+	display: none;
+}
+
+.show {
+	display: block;
+}
+
 //USER RESULTS------------------
 
 .trip-info{
@@ -139,7 +149,6 @@ input[type=range]::-moz-range-thumb {
     height: 400px;
     width: 600px;
     margin: 0 auto;
-    display: block;
 }
 
 
