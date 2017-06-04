@@ -23,6 +23,10 @@ body {
     }
 
     main{
+      position: absolute;
+      top:0;
+      width: 100%;
+      z-index: 200;
       h1{
         font-family: 'Josefin Sans', sans-serif;
         font-size: 3em;
@@ -35,7 +39,6 @@ body {
         // display: none;
         font-size: 1.2em;
         color: white;
-        z-index: 500;
         position: relative;
         top: 100px;
         text-align: center;
@@ -212,6 +215,7 @@ input[type=range]::-moz-range-thumb {
     border-right: none;
     border-left: none;
     position: relative;
+    z-index: 0;
 }
 .no-video .video-container video,
 .touch .video-container video {
