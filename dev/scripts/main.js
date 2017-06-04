@@ -164,8 +164,9 @@ bikeApp.getUserInput = function (){
 		bikeApp.time = $('#time').val();
 		bikeApp.getUserLatLong(bikeApp.setUserOriginLatLong, originAddress);
 		bikeApp.getUserLatLong(bikeApp.setUserDestinationLatLong, destinationAddress);
-		$(".userInput").toggleClass("hidden fadeOutUp");
-		$(".user-result").toggleClass("show");
+
+		$(".modal").toggleClass("hidden fadeOutUp");
+		$(".modal2").toggleClass("show");
 	})
 }
 
@@ -293,12 +294,12 @@ var initMap = function() {
 }
 
 bikeApp.placeMarkers = function() {
-	var customIcon = 'https://image.flaticon.com/icons/png/128/34/34468.png'
+	// var customIcon = 'https://image.flaticon.com/icons/png/128/34/34468.png'
 	var markerOrigin = new google.maps.Marker({
 	    position: bikeApp.shortestDistanceOriginLatLong,
 	    map: map,
 	    title: 'origin marker',
-	    icon: customIcon
+	    // icon: customIcon
 	});
 	    console.log(customIcon, "icon");
 
