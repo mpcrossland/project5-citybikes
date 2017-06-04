@@ -27,6 +27,10 @@ body {
       top:0;
       width: 100%;
       z-index: 200;
+      form.user-input{
+        display: none;
+        // border: 1px solid blue;
+      }
       h1{
         font-family: 'Josefin Sans', sans-serif;
         font-size: 3em;
@@ -76,6 +80,25 @@ body {
                     }
 
       }
+<<<<<<< HEAD
+=======
+      .modal2{
+        font-size: 1.2em;
+        color: white;
+        position: relative;
+        top: 100px;
+        text-align: center;
+        margin: 0 auto;
+        border: 10px solid #C02942;
+        background-color: rgba(217, 91, 67, .9);
+        border-radius: 20px;
+        width: 45%;
+        padding: 5px;
+      }
+    section.user-result{
+      font-size: .8em;
+    }
+>>>>>>> 9705830bcfb8dbabd742270b148ebbe6dd8430f7
  }
 
  // Slider Styles
@@ -130,28 +153,30 @@ input[type=range]::-moz-range-thumb {
 //USER RESULTS------------------
 
 .trip-info{
-  // display: none;
+  // border: 1px solid green;
   font-size: 1em;
   z-index: 500;
   position: relative;
-  top: 100px;
   text-align: center;
   margin: 0 auto;
-  border: 10px solid #C02942;
   // background-color: rgba(246, 246, 246, 0.35);
-  background-color: #D95B43;
   border-radius: 20px;
-  width: 40%;
   padding: 20px;
 
 }
   #map {
+<<<<<<< HEAD
     height: 400px;
     width: 600px;
     margin: 0 auto;		
     	img {
     		 margin: 0px;
     	}
+=======
+    height: 450px;
+    width: 100%;
+    margin: 0 auto;
+>>>>>>> 9705830bcfb8dbabd742270b148ebbe6dd8430f7
 }
 
 
