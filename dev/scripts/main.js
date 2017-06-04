@@ -251,13 +251,12 @@ bikeApp.getCityBikesPricing = function(userTime, distanceDurationMinutes, roundT
 		const hourlyPrice = (res.data.plans[1].price) / 24;
 		//multiply user hours to hourly price
 		const userHourlyPrice = (userTime * hourlyPrice).toFixed(2);
-		console.log(userHourlyPrice, "should be 0.66")
-		bikeApp.displayResults(distanceDurationMinutes, roundTripTime, userHourlyPrice, hourlyPrice); 
+		bikeApp.displayResults(distanceDurationMinutes, roundTripTime, userHourlyPrice); 
 	});
 };	
 
 
-bikeApp.displayResults = function (stationDistance, roundTripTravelTime, userFinalPrice, pricePerHour) {
+bikeApp.displayResults = function (stationDistance, roundTripTravelTime, userFinalPrice) {
 	const originDistanceKm = (bikeApp.shortestDistanceOriginStation.distance_origin / 1000).toFixed(2);
 	const destinationDistanceKm = (bikeApp.shortestDistanceDestinationStation.distance_dest / 1000).toFixed(2);
 	const originPoint = $("<p>").text(`Station closest to your origin: ${bikeApp.shortestDistanceOriginStation.station_name}, ${originDistanceKm}km away`);
@@ -284,7 +283,7 @@ var initMap = function() {
 	});	
 }
 
-bikeApp.markersArray = [];
+// bikeApp.markersArray = [];
 
 bikeApp.placeMarkers = function() {
 	// var myLatLng = new google.maps.LatLng(45.1510532655634,-79.398193359375);
@@ -304,15 +303,16 @@ bikeApp.placeMarkers = function() {
 	    map: bikeApp.map,
 	    title: 'Hello World!'
 	});
+	marker.setMap(bikeApp.map)
 	    console.log(bikeApp.shortestDistanceDestinationLatLong, "lat long shortest")
 
-	bikeApp.markersArray.push(markerOrigin, markerDestination);
+	// bikeApp.markersArray.push(markerOrigin, markerDestination);
 
-	bikeApp.markersArray.forEach((marker) => {
-		marker.setMap(bikeApp.map) // this function is somehow not working? showing up undefined
-	});
+	// bikeApp.markersArray.forEach((marker) => {
+	// 	marker.setMap(bikeApp.map) // this function is somehow not working? showing up undefined
+	// });
 
-	// google.maps.event.addDomListener(window, 'load', initMap());
+	google.maps.event.addDomListener(window, 'load', initMap());
 }
 
 // more pseudocode 
