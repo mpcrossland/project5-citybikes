@@ -164,6 +164,8 @@ bikeApp.getUserInput = function (){
 		bikeApp.time = $('#time').val();
 		bikeApp.getUserLatLong(bikeApp.setUserOriginLatLong, originAddress);
 		bikeApp.getUserLatLong(bikeApp.setUserDestinationLatLong, destinationAddress);
+		$(".userInput").toggleClass("hidden fadeOutUp");
+		$(".user-result").toggleClass("show");
 	})
 }
 
@@ -308,9 +310,7 @@ bikeApp.placeMarkers = function() {
 	});
 }
 
-<<<<<<< HEAD
 
-=======
 $( document ).ready(function() {
 
     scaleVideoContainer();
@@ -373,7 +373,7 @@ function scaleBannerVideoSize(element){
 
     });
 }
->>>>>>> dea23b48e9e969b469afb800e6aae5d98df0c470
+
 
 // more pseudocode 
 // toggle classes to hide and show map
@@ -397,4 +397,3 @@ $(function() {
 
 
 
-$
