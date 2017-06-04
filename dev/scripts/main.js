@@ -33,7 +33,7 @@ const outputUpdate = function(time) {
 	document.querySelector('#hours').value = time;
 }
 bikeApp.userTime = function outputUpdate() {
-}
+} // try to refactor this by putting the outputUpdate function inside here
 
 //ajax call to citybikes for URLs (for subsequent API calls) 
 bikeApp.getCityBikes = function() {
@@ -45,9 +45,10 @@ bikeApp.getCityBikes = function() {
 	.then(function(res) {
 		// returns an array of objects need url
 		// system information, station information url, system pricing plans
-		bikeApp.stationInfoUrl = res.data.en.feeds[1].url;
+		bikeApp.stationInfoUrl = res.data.en.feeds[1].url; 
 		bikeApp.pricingUrl = res.data.en.feeds[3].url;
 		bikeApp.getStationInfo();
+		// implement station info url for number of bikes available etc.
 	});
 };
 
@@ -68,6 +69,8 @@ bikeApp.getStationInfo = function() {
 	})
 }
 
+//create a geolocation function that will store user's geolocation if they allow browser to read their current location
+
 //auto completes location using geocode and stores it to userOrigin/Destination
 bikeApp.getLocations = function(){
 	 var userOrigin = new google.maps.places.Autocomplete(
@@ -79,6 +82,7 @@ bikeApp.getLocations = function(){
 }
 
 // setting callback functions for user lat long values
+// refactor - try pushing these values to the empty arrays instead
 bikeApp.setUserOriginLatLong = function(result) {
 	bikeApp.userOriginLatLong = [ 
     	result.geometry.location.lat(), 
@@ -94,8 +98,8 @@ bikeApp.setUserDestinationLatLong = function(result) {
 
 // compare distances with city bikes api and user lat long
 bikeApp.compareDistances = function() {
-	var distanceOriginInfo = [];
-	var distanceDestinationInfo = [];
+	let distanceOriginInfo = [];
+	let distanceDestinationInfo = [];
 
 	if (bikeApp.userDestinationLatLong.length > 0 && bikeApp.userOriginLatLong.length > 0) {
 		let originLatLong = new google.maps.LatLng(bikeApp.userOriginLatLong[0], bikeApp.userOriginLatLong[1]);
@@ -135,6 +139,7 @@ bikeApp.compareDistances = function() {
 			}
 		});
 
+		// getting the stations with the shortest distance from both the origin and destination
 		bikeApp.shortestDistanceOriginStation = shortestDistanceOrigin[0];
 		bikeApp.shortestDistanceDestinationStation = shortestDistanceDestination[0];
 		bikeApp.shortestDistanceOriginLatLong = new google.maps.LatLng(bikeApp.shortestDistanceOriginStation.station_latlong[0], bikeApp.shortestDistanceOriginStation.station_latlong[1]);
@@ -193,8 +198,6 @@ bikeApp.getDistanceDuration = function(stationOrigin, stationDestination) {
 	    } else {
 	    	bikeApp.stationTravelTime = response.rows[0].elements[0].duration.value; //receiving travel time in seconds
 	    	bikeApp.getDistanceDurationRoundTrip(bikeApp.shortestDistanceOriginLatLong, bikeApp.destinationLatLong);
-
-
 	    }
 	});
 }
@@ -276,23 +279,24 @@ bikeApp.displayResults = function (stationDistance, roundTripTravelTime, userFin
 }
 
 //this is used to initialize the map 
+var map;
 var initMap = function() {
-	bikeApp.map = new google.maps.Map(document.getElementById('map'), {
+	map = new google.maps.Map(document.getElementById('map'), {
 	  center: { lat: 43.70011, lng: -79.4163 },
 	  zoom: 11
 	});	
+	if (bikeApp.shortestDistanceDestinationLatLong !== undefined && bikeApp.shortestDistanceOriginLatLong !== undefined) {
+		bikeApp.placeMarkers();
+	} 
 }
 
-// bikeApp.markersArray = [];
-
 bikeApp.placeMarkers = function() {
-	// var myLatLng = new google.maps.LatLng(45.1510532655634,-79.398193359375);
 
 	var markerOrigin = new google.maps.Marker({
-	    position: { lat: 43.70011, lng: -79.4163 },
+	    position: bikeApp.shortestDistanceOriginLatLong,
 	    animation: google.maps.Animation.DROP,
 	    zIndex: 8,
-	    map: bikeApp.map,
+	    map: map,
 	    title: 'Hello World!'
 	});
 
@@ -300,19 +304,9 @@ bikeApp.placeMarkers = function() {
 	    position: bikeApp.shortestDistanceDestinationLatLong,
 	    animation: google.maps.Animation.DROP,
 	    zIndex: 8,
-	    map: bikeApp.map,
+	    map: map,
 	    title: 'Hello World!'
 	});
-	marker.setMap(bikeApp.map)
-	    console.log(bikeApp.shortestDistanceDestinationLatLong, "lat long shortest")
-
-	// bikeApp.markersArray.push(markerOrigin, markerDestination);
-
-	// bikeApp.markersArray.forEach((marker) => {
-	// 	marker.setMap(bikeApp.map) // this function is somehow not working? showing up undefined
-	// });
-
-	google.maps.event.addDomListener(window, 'load', initMap());
 }
 
 // more pseudocode 
