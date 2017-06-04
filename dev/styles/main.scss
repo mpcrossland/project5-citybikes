@@ -40,7 +40,6 @@ body {
         padding-bottom: 30px;
       }
       section.modal{
-        // display: none;
         font-size: 1.2em;
         color: white;
         position: relative;
@@ -66,7 +65,7 @@ body {
 
         }
       input.controls{
-        width: 400px;
+        width: 95%;
         height: 50px;
         background-color: rgba(217, 91, 67, .01);
         border: none;
@@ -80,8 +79,7 @@ body {
                     }
 
       }
-<<<<<<< HEAD
-=======
+
       .modal2{
         font-size: 1.2em;
         color: white;
@@ -98,7 +96,7 @@ body {
     section.user-result{
       font-size: .8em;
     }
->>>>>>> 9705830bcfb8dbabd742270b148ebbe6dd8430f7
+
  }
 
  // Slider Styles
@@ -165,18 +163,12 @@ input[type=range]::-moz-range-thumb {
 
 }
   #map {
-<<<<<<< HEAD
     height: 400px;
-    width: 600px;
-    margin: 0 auto;		
-    	img {
-    		 margin: 0px;
-    	}
-=======
-    height: 450px;
-    width: 100%;
-    margin: 0 auto;
->>>>>>> 9705830bcfb8dbabd742270b148ebbe6dd8430f7
+    width: 90%;
+    margin: 0 auto;	
+    img {
+    	margin: -1px;
+    }	
 }
 
 
@@ -277,4 +269,21 @@ input[type=range]::-moz-range-thumb {
 }
 .video-container video.fillWidth {
     width: 100%;
+}
+
+//media queries
+
+/* Portrait tablet and small desktops */
+@media (max-width: 940px) {
+	.modal {
+		width: 70%;
+	}
+}
+
+/* Landscape phone to portrait tablet */
+@media (max-width: 768px) {
+}
+
+/* Landscape phones and down */
+@media (max-width: 480px) {
 }

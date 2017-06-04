@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	  <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>CityBikes Tornto</title>
 	<link href="https://fonts.googleapis.com/css?family=Josefin+Sans|Playfair+Display" rel="stylesheet">
 	<link rel="stylesheet" href="public/styles/style.css">
@@ -23,31 +23,7 @@
 	<main>
 
 		<section class="modal">
-<<<<<<< HEAD
-				<section class="logo">
-					<h1>CityBikes Toronto</h1>
-				</section>
-				<form action="collect user data" class="userInput">
-					<div class="textField">
-						<p>Enter a starting location</p>
-						<input id="origin-input" class="controls" type="text" placeholder="Start Location" required>
-						<p>Enter a destination location</p>
-						 <input id="destination-input" class="controls" type="text" placeholder="Destination Location" required>
-					</div>
-					<div class="slider"></div>
-						<label for="time"><p>Time : </label> <output for="time" id="hours">1</output> hour(s)</p>
-						 <input type="range" id="time" min="1" max="24" step="1" value="1" oninput="bikeApp.userTime(outputUpdate(value))">
-					 <div class="submit">
-						<button class="btn btn-2 btn-2g" role="submit">Submit</button>
-					</div>
-				</form>
-				<section class="user-result">
-					<div class="trip-info hidden">
-						<p> Lorem ipsum dolor sit amet, consectetur adipisicing</p>
-					</div>
-						<div id="map"></div>
-	  		 	</section>
-=======
+
 			<section class="logo">
 				<h1>CityBikes Toronto</h1>
 			</section>
@@ -55,7 +31,7 @@
 				<div class="textField">
 					<p>Enter a starting location</p>
 					<input id="origin-input" class="controls" type="text" placeholder="Start Location" required>
-					<p>Enter a destination location</p>
+					<p>Enter a destination</p>
 					 <input id="destination-input" class="controls" type="text" placeholder="Destination Location" required>
 				</div>
 				<div class="slider"></div>
@@ -66,7 +42,7 @@
 					<button class="btn btn-2 btn-2g" role="submit">Submit</button>
 				</div>
 			</form>
->>>>>>> 9705830bcfb8dbabd742270b148ebbe6dd8430f7
+
 		</section>
 		<div class="modal2 hidden">
 			<section class="user-result">
@@ -83,7 +59,6 @@
 	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>	
 	<script src="dev/scripts/main.js"></script>
 	
-	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBlSloFbQO8Pm3S6MG07Cz0gMZYN1NpAwQ&libraries=geometry,places&callback=initMap"
-	    async defer></script>
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBlSloFbQO8Pm3S6MG07Cz0gMZYN1NpAwQ&libraries=geometry,places&callback=initMap" async defer></script>
 </body>
 </html>

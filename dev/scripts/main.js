@@ -164,13 +164,8 @@ bikeApp.getUserInput = function (){
 		bikeApp.time = $('#time').val();
 		bikeApp.getUserLatLong(bikeApp.setUserOriginLatLong, originAddress);
 		bikeApp.getUserLatLong(bikeApp.setUserDestinationLatLong, destinationAddress);
-<<<<<<< HEAD
-		// $(".userInput").toggleClass("hidden");
-=======
-
 		$(".modal").toggleClass("hidden fadeOutUp");
 		$(".modal2").toggleClass("show");
->>>>>>> 9705830bcfb8dbabd742270b148ebbe6dd8430f7
 	})
 }
 
@@ -298,23 +293,17 @@ var initMap = function() {
 }
 
 bikeApp.placeMarkers = function() {
-<<<<<<< HEAD
-	var customIcon = {
-		url: '../../dev/assets/images/citybike-marker.svg',
-		size: new google.maps.Size(35, 200),
-		optimized: false
+ 	// var customIcon = {
+ 	// 	url: '../../dev/assets/images/citybike-marker.svg',
+ 	// }
+   var customIcon = 'https://image.flaticon.com/icons/png/128/34/34468.png'
 
-	}	
-=======
-	// var customIcon = 'https://image.flaticon.com/icons/png/128/34/34468.png'
->>>>>>> 9705830bcfb8dbabd742270b148ebbe6dd8430f7
 	var markerOrigin = new google.maps.Marker({
 	    position: bikeApp.shortestDistanceOriginLatLong,
 	    map: map,
 	    title: 'origin marker',
-	    // icon: customIcon
+	    icon: customIcon
 	});
-	    console.log(customIcon, "icon");
 
 	var markerDestination = new google.maps.Marker({
 	    position: bikeApp.shortestDistanceDestinationLatLong,
