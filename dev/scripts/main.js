@@ -163,7 +163,6 @@ bikeApp.getUserInput = function (){
 		bikeApp.time = $('#time').val();
 		bikeApp.getUserLatLong(bikeApp.setUserOriginLatLong, originAddress);
 		bikeApp.getUserLatLong(bikeApp.setUserDestinationLatLong, destinationAddress);
-
 		$(".userInput").toggleClass("hidden fadeOutUp");
 		$(".user-result").show();
 		initMap();

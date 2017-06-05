@@ -2,13 +2,18 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	  <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+<!-- 	*** Meta tag for media queries *** -->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>CityBikes Toronto</title>
+	<!-- Google Fonts  -->
 	<link href="https://fonts.googleapis.com/css?family=Josefin+Sans|Playfair+Display" rel="stylesheet">
+	<!-- *** Animate.css *** -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+	<!-- *** Public styles folder *** -->
 	<link rel="stylesheet" href="public/styles/style.css">
 </head>
 <body>
-
+	<!-- background video -->
 	<div class="homepage-hero-module">
 	    <div class="video-container">
 	        <div class="filter"></div>
@@ -18,12 +23,15 @@
 	        </video>
 	    </div>
 	</div>
+<!-- 	background video end -->
 
 	<main>
-		<section class="wrapper modal">
+		<!-- modal wrapper -->
+		<section class="wrapper modal animated fadeInDown">
 			<header class="logo">
-				<h1>CityBikes Toronto</h1>
+				<h1 class="fadeIn animated">CityBikes Toronto</h1>
 			</header>
+			<!-- intro user input form -->
 			<form action="" class="userInput">
 				<div class="textField">
 					<label for="origin-input">Starting Point:</label>
@@ -37,20 +45,25 @@
 				</div>
 				<button class="btn btn-2 btn-2g" role="submit">Submit</button>
 			</form>
-			<section class="user-result hidden">
+				<!-- user intput form end -->
+				<!-- user results screen -->
+			<section class="user-result hidden fadeInUp animated">
 				<div class="trip-info">
 				</div>
 				<div id="map"></div>
 				<button class="btn btn-2 btn-2g" value="restart" onClick="window.location.reload()">reset</button>
 			</section>
+				<!-- user results screen end -->
 		</section>
+		<!-- modal wrapper end -->
 	</main>
 	<footer>
 	</footer>
-
+	<!-- *** jQuery *** -->
 	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>	
+	<!-- *** JS code *** -->
 	<script src="dev/scripts/main.js"></script>
-	
+	<!-- *** Google Maps *** -->
 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBlSloFbQO8Pm3S6MG07Cz0gMZYN1NpAwQ&libraries=geometry,places&callback=initMap"
 	    async defer></script>
 </body>
