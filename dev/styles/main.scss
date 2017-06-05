@@ -1,20 +1,6 @@
-article,aside,details,figcaption,figure,footer,header,hgroup,nav,section,summary{display:block;}audio,canvas,video{display:inline-block;}audio:not([controls]){display:none;height:0;}[hidden]{display:none;}html{font-family:sans-serif;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%;}a:focus{outline:thin dotted;}a:active,a:hover{outline:0;}h1{font-size:2em;}abbr[title]{border-bottom:1px dotted;}b,strong{font-weight:700;}dfn{font-style:italic;}mark{background:#ff0;color:#000;}code,kbd,pre,samp{font-family:monospace, serif;font-size:1em;}pre{white-space:pre-wrap;word-wrap:break-word;}q{quotes:\201C \201D \2018 \2019;}small{font-size:80%;}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline;}sup{top:-.5em;}sub{bottom:-.25em;}img{border:0;}svg:not(:root){overflow:hidden;}fieldset{border:1px solid silver;margin:0 2px;padding:.35em .625em .75em;}button,input,select,textarea{font-family:inherit;font-size:100%;margin:0;}button,input{line-height:normal;}button,html input[type=button],/* 1 */
-input[type=reset],input[type=submit]{-webkit-appearance:button;cursor:pointer;}button[disabled],input[disabled]{cursor:default;}input[type=checkbox],input[type=radio]{box-sizing:border-box;padding:0;}input[type=search]{-webkit-appearance:textfield;-moz-box-sizing:content-box;-webkit-box-sizing:content-box;box-sizing:content-box;}input[type=search]::-webkit-search-cancel-button,input[type=search]::-webkit-search-decoration{-webkit-appearance:none;}textarea{overflow:auto;vertical-align:top;}table{border-collapse:collapse;border-spacing:0;}body,figure{margin:0;}legend,button::-moz-focus-inner,input::-moz-focus-inner{border:0;padding:0;}
-
-.clearfix:after {visibility: hidden; display: block; font-size: 0; content: " "; clear: both; height: 0; }
-
-* { -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box; }
-
-
-// font-family: 'Josefin Sans', sans-serif;
-// font-family: 'Playfair Display', serif;
-
-
-
-/* Always set the map height explicitly to define the size of the div
- * element that contains the map. */
-
-/* Optional: Makes the sample page fill the window. */
+@import 'partials/setup';
+@import 'partials/variables';
+@import 'partials/form';
 
 // * {
 //   border: 1px solid red;
@@ -25,121 +11,52 @@ html {
 }
 
 body {
-  font-family: 'Playfair Display', serif;
+  font-family: $bodyFont;
   height: 100%;
   font-size: 1.4rem;
   // background-image: url('../assets/NYC-Traffic/snapshots/NYC-Traffic.jpg');
 }
-
 
 main {
   position: absolute;
   top: 0;
   width: 100%;
   height: 100%;
-  z-index: 200;
+  z-index: 10;
 }  
 
-  form.user-input{
-    display: none;
-    // border: 1px solid blue;
+h1 {
+  font-family: $headingFont;
+  font-size: 5rem;
+  text-shadow: 1px 1px 1px $magentaColor;
+  color: $purpleColor;
+  text-transform: uppercase;
+  margin: 15px;
+}
+
+.wrapper {
+  font-size: 1.2em;
+  color: white;
+  top: 50px;
+  transform: translate(50%);
+  position: absolute;
+  text-align: center;
+  margin: 20px auto;
+  border: 10px solid $magentaColor;
+  background-color: rgba(217, 91, 67, .9);
+  border-radius: 20px;
+  width: 50%;
+  padding: 5px;
+  label {
+    font-family: $headingFont;
+    font-size: 2rem;
   }
-  h1{
-    font-family: 'Josefin Sans', sans-serif;
-    font-size: 3em;
-    color:#542437;
-    text-transform: uppercase;
-    margin: 15px;
-  }
-  section.modal{
-    // display: none;
-    font-size: 1.2em;
-    color: white;
-    transform: translate(50%);
-    position: absolute;
-    text-align: center;
-    margin: 20px auto;
-    border: 10px solid #C02942;
-    background-color: rgba(217, 91, 67, .9);
-    border-radius: 20px;
-    width: 50%;
-    padding: 5px;
-    label {
-      font-family:'Josefin Sans', sans-serif;
-      font-size: 1.7em;
-    }
-    }
-    input[type=text]:focus {
-        background-color: #E89D8E;
-        border: none;
-        color: black;
-
-    }
-  input.controls{
-    width: 95%;
-    height: 50px;
-    background-color: rgba(217, 91, 67, .01);
-    border: none;
-    border-bottom: 1px solid #C02942;
-    margin-bottom: 20px;
-    &::-webkit-input-placeholder {
-                    text-align: center;
-                    color: #C02942;
-                    font-size: .9em;
-                    text-transform: uppercase;
-                }
-section.user-result{
-  font-size: .8em;
-}
 }
 
- // Slider Styles
- input[type=range] {
-  -webkit-appearance: none;
-  margin: 18px 0;
-  width: 80%;
-  background: #C02942;
-  height: 10px;
-  border-radius: 5px;
-}
-
-input[type=range]:focus {
-  outline: none;
-}
-
-input[type=range]::-webkit-slider-thumb {
-  height: 50px;
-  width: 73px;
-  border-radius: 50%;
-  background-image: url("../assets/images/bikeSVG.svg");
-  background-size: cover;
-  cursor: pointer;
-  -webkit-appearance: none;
-}
-
-input[type=range]::-moz-range-thumb {
-  border: none;
-  background-color: transparent;
-  height: 50px;
-  width: 73px;
-  border-radius: 50%;
-  background-image: url("../assets/images/bikeSVG.svg");
-  background-size: cover;
-  cursor: pointer;
-  
-}
-
-::-moz-range-track {
-    background: #D95B43;
-}
 
 //to toggle between on "submit"
 .hidden {
 	display: none;
-}
-
-.show {
-	display: block;
 }
 
 //USER RESULTS------------------
@@ -180,10 +97,10 @@ input[type=range]::-moz-range-thumb {
 .travelTime, .priceContainer, .roundTrip {
   position: absolute;
   z-index: 9999999;
-  background: #53777A;
+  background: $tealColor;
   max-width: 100px;
   color: white;
-  font-family: 'Josefin Sans', sans-serif;
+  font-family: $headingFont;
   border-radius: 5px;
   padding: 5px;
   p {
@@ -202,10 +119,10 @@ input[type=range]::-moz-range-thumb {
 .noStation {
   position: absolute;
   z-index: 9999999;
-  background: #D95B43;
+  background: $magentaColor;
   max-width: 90%;
   color: white;
-  font-family: 'Josefin Sans', sans-serif;
+  font-family: $headingFont;
   border-radius: 5px;
   padding: 5px;
   top: 400px;
@@ -217,7 +134,7 @@ input[type=range]::-moz-range-thumb {
 
 //button styling---------------------------
 .color-2 {
-  background: #53777A;
+  background: $tealColor;
 }
 .btn {
   border: none;
@@ -247,7 +164,7 @@ input[type=range]::-moz-range-thumb {
   transition: all 0.3s;
 }
 .btn-2 {
-  background: #53777A;
+  background: $tealColor;
   color: #fff;
   box-shadow: 0 6px #3a5456;
   -webkit-transition: none;
