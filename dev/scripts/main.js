@@ -11,14 +11,18 @@
 // get directions from starting station to end station with distance matrix API
 // push to DOM duration, distance and markers onto the map
 
-
+//declaring global bikeApp variable
 const bikeApp = {};
-
+//City bikes API call URL
 bikeApp.cityBikesUrl = 'http://api.citybik.es/v2/networks';
+//City bikes API call for Toronto stations
 bikeApp.cityBikesToronto = 'https://tor.publicbikesystem.net/ube/gbfs/v1/';
+//empty array to store user origin latitude/longitude
 bikeApp.userOriginLatLong =[];
+//empty array to store user destination latutde/longitude
 bikeApp.userDestinationLatLong =[];
 
+//initialize function
 bikeApp.init = function() {
 	bikeApp.getCityBikes();
 	bikeApp.userTime();
@@ -80,14 +84,14 @@ bikeApp.getLocations = function(){
       {types: ['geocode']});
 }
 
-// setting callback functions for user lat long values
-// refactor - try pushing these values to the empty arrays instead
+// setting callback functions for user  origin lat long values
 bikeApp.setUserOriginLatLong = function(result) {
 	bikeApp.userOriginLatLong = [ 
     	result.geometry.location.lat(), 
     	result.geometry.location.lng()]
     bikeApp.compareDistances();
 }
+// setting callback functions for user  destination lat long values
 bikeApp.setUserDestinationLatLong = function(result) {
     bikeApp.userDestinationLatLong = [ 
     	result.geometry.location.lat(), 
@@ -107,13 +111,14 @@ bikeApp.compareDistances = function() {
 			let cityBikesLatLong = new google.maps.LatLng(station.latLong[0], station.latLong[1]);
 			let distanceBetweenOrigin = google.maps.geometry.spherical.computeDistanceBetween(originLatLong, cityBikesLatLong);
 			let distanceBetweenDestination = google.maps.geometry.spherical.computeDistanceBetween(bikeApp.destinationLatLong, cityBikesLatLong);
+			//storing city bikes info for nearest origin station to "distanceOriginInfo" arrray
 			distanceOriginInfo.push({
 				station_id: station.stations.station_id,
 				station_name: station.stations.name,
 				station_latlong: station.latLong,
 				distance_origin: distanceBetweenOrigin,
 			});
-
+			//storing city bikes info for nearest destination station to "distanceDestinationInfo" arrray
 			distanceDestinationInfo.push({
 				station_id: station.stations.station_id,
 				station_name: station.stations.name,
@@ -158,19 +163,26 @@ bikeApp.compareDistances = function() {
 bikeApp.getUserInput = function (){
 	$('.userInput').on('submit', function(e){
 		e.preventDefault();
+		//storing user-entered origin address
 		const originAddress = $('#origin-input').val()
+		//storing user-entered destination address
 		const destinationAddress = $('#destination-input').val();
+		//storing user entered hourly rental time
 		bikeApp.time = $('#time').val();
+		//obtaining user origin lat/long (geocoder)
 		bikeApp.getUserLatLong(bikeApp.setUserOriginLatLong, originAddress);
+		//obtaining user destination lat/long (geocoder)
 		bikeApp.getUserLatLong(bikeApp.setUserDestinationLatLong, destinationAddress);
+		//"user input" screen hides on "submit"
 		$(".userInput").toggleClass("hidden fadeOutUp");
+		//show user result/map screen
 		$(".user-result").show();
+		//initialize map 
 		initMap();
 	});
 }
 
 //turns the location in to lat/lon values
-
 bikeApp.getUserLatLong = function (callback, address){
 	geocoder = new google.maps.Geocoder();
 	if (geocoder){
@@ -184,6 +196,7 @@ bikeApp.getUserLatLong = function (callback, address){
 	}
 }
 
+//use Google distance matrix service to calculate cycling travel time
 bikeApp.getDistanceDuration = function(stationOrigin, stationDestination) {
 	var distanceService = new google.maps.DistanceMatrixService();
 	distanceService.getDistanceMatrix({
@@ -202,7 +215,7 @@ bikeApp.getDistanceDuration = function(stationOrigin, stationDestination) {
 	    }
 	});
 }
-
+//seperae distance matric service to calculate roundtrip if no destination station available
 bikeApp.getDistanceDurationRoundTrip = function(stationOrigin, userDestination) {
 	var distanceService = new google.maps.DistanceMatrixService();
 	distanceService.getDistanceMatrix({
@@ -224,17 +237,17 @@ bikeApp.getDistanceDurationRoundTrip = function(stationOrigin, userDestination) 
 }
 
 
-
 bikeApp.travelTimeDifference = function (userTime, distanceDuration, roundTripTime) {
-	const distanceDurationMinutes = distanceDuration / 60 
-	var userTimeMinutes = userTime * 60
-	var distanceDifference = userTimeMinutes - distanceDurationMinutes
-	var distanceDifferenceRoundTrip = userTimeMinutes - roundTripTime
+	const distanceDurationMinutes = distanceDuration / 60 //convert seconds to minutes
+	var userTimeMinutes = userTime * 60 //convert user hourly time to minutes
+	var distanceDifference = userTimeMinutes - distanceDurationMinutes //determine user time deducted by distance time to ensure they have selected enough time
+	var distanceDifferenceRoundTrip = userTimeMinutes - roundTripTime //determine user time deducted by round trip time
 
 	if (distanceDifference < 0) {
 		//if user time input is less than trip destination time, prompt alert
 		alert(`You have selected ${bikeApp.time} hour(s) for your trip, but it will take you ${ Math.floor(distanceDurationMinutes) } minutes to get to your destination. Please adjust your trip time. 🚲`);
 	} else if (distanceDifferenceRoundTrip < 0) {
+		//if user time input is less than roundtrip time, prompt alert
 		alert(`You have selected ${bikeApp.time} hour(s) for your trip, but there are no stations nearby your destination and it will take you ${ Math.floor(roundTripTime) } minutes for the round trip. Please adjust your travel time. 🚲`);
 		window.location.reload()
 	} else {
@@ -242,7 +255,7 @@ bikeApp.travelTimeDifference = function (userTime, distanceDuration, roundTripTi
 
 	}
 }
-
+//obtain price for trip
 bikeApp.getCityBikesPricing = function(userTime, distanceDurationMinutes, roundTripTime) {
 	$.ajax({
 		url: bikeApp.pricingUrl,
@@ -258,7 +271,7 @@ bikeApp.getCityBikesPricing = function(userTime, distanceDurationMinutes, roundT
 	});
 };	
 
-
+//template literals to print user results to DOM
 bikeApp.displayResults = function (stationDistance, roundTripTravelTime, userFinalPrice) {
 	const originDistanceKm = (bikeApp.shortestDistanceOriginStation.distance_origin / 1000).toFixed(2);
 	const destinationDistanceKm = (bikeApp.shortestDistanceDestinationStation.distance_dest / 1000).toFixed(2);
@@ -289,6 +302,7 @@ bikeApp.displayResults = function (stationDistance, roundTripTravelTime, userFin
 
 //this is used to initialize the map 
 var map;
+//creating map
 var initMap = function() {
 	map = new google.maps.Map(document.getElementById('map'), {
 	  center: { lat: 43.6543, lng: -79.3860 },
@@ -300,6 +314,7 @@ var initMap = function() {
 	} 
 }
 
+//custom Map Markers + info windows on "click"
 bikeApp.placeMarkers = function(origin, destination, distanceDestination) {
 
     var infowindowOrigin = new google.maps.InfoWindow({
@@ -309,7 +324,7 @@ bikeApp.placeMarkers = function(origin, destination, distanceDestination) {
     var infowindowDestination = new google.maps.InfoWindow({
           content: destination
     });
-
+    //custom marker info
 	var customIcon = {
 		url: '../../dev/assets/images/citybike-marker.svg',
 		size: new google.maps.Size(50, 70),
@@ -326,7 +341,7 @@ bikeApp.placeMarkers = function(origin, destination, distanceDestination) {
 	markerOrigin.addListener('click', function() {
           infowindowOrigin.open(map, markerOrigin);
     });
-
+	//marker info if user is doing roundtrip
 	if (distanceDestination < 2) {
 		var markerDestination = new google.maps.Marker({
 		    position: bikeApp.shortestDistanceDestinationLatLong,
@@ -340,6 +355,8 @@ bikeApp.placeMarkers = function(origin, destination, distanceDestination) {
 	    });
 	}
 }
+
+//background video JS
 
 function scaleVideoContainer() {
 
@@ -367,7 +384,6 @@ function scaleBannerVideoSize(element){
     videoWidth,
     videoHeight;
 
-    // console.log(windowHeight);
 
     $(element).each(function(){
         var videoAspectRatio = $(this).data('height')/$(this).data('width');
@@ -388,13 +404,7 @@ function scaleBannerVideoSize(element){
 }
 
 
-// more pseudocode 
-// toggle classes to hide and show map
-// button on the map to let the user try again (enter new locations)
-// put more information in markers so when user clicks on it will show the info
-// animations
-// make the site responsive
-// background image to be made a video - need to plugin javascript
+//document ready
 $(function() {
 	bikeApp.init();
 	scaleVideoContainer();
