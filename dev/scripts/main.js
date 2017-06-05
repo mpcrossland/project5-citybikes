@@ -237,6 +237,7 @@ bikeApp.travelTimeDifference = function (userTime, distanceDuration, roundTripTi
 		alert(`You have selected ${bikeApp.time} hour(s) for your trip, but it will take you ${ Math.floor(distanceDurationMinutes) } minutes to get to your destination. Please adjust your trip time. 🚲`);
 	} else if (distanceDifferenceRoundTrip < 0) {
 		alert(`You have selected ${bikeApp.time} hour(s) for your trip, but there are no stations nearby your destination and it will take you ${ Math.floor(roundTripTime) } minutes for the round trip. Please adjust your travel time. 🚲`);
+		window.location.reload()
 	} else {
 		bikeApp.getCityBikesPricing(bikeApp.time, distanceDurationMinutes, roundTripTime);
 
@@ -380,7 +381,7 @@ function scaleBannerVideoSize(element){
             $(this).css({'margin-top' : 0, 'margin-left' : -(videoWidth - windowWidth) / 2 + 'px'});
 
             $(this).width(videoWidth).height(videoHeight);
-        }
+        } 
 
         $('.homepage-hero-module .video-container video').addClass('fadeIn animated');
 
