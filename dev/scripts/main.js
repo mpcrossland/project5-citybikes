@@ -184,7 +184,7 @@ bikeApp.getUserInput = function (){
 
 //turns the location in to lat/lon values
 bikeApp.getUserLatLong = function (callback, address){
-	geocoder = new google.maps.Geocoder();
+	let geocoder = new google.maps.Geocoder();
 	if (geocoder){
 		geocoder.geocode({
 			'address':address
@@ -326,10 +326,10 @@ bikeApp.placeMarkers = function(origin, destination, distanceDestination) {
     });
     //custom marker info
 	var customIcon = {
-		url: '../../dev/assets/images/citybike-marker.svg',
-		size: new google.maps.Size(60, 80),
-		anchor: new google.maps.Point(0, 40),
-		scaledSize: new google.maps.Size(60, 80)
+		url: './public/assets/images/citybike-marker.svg',
+		size: new google.maps.Size(50, 70),
+		anchor: new google.maps.Point(0, 70),
+		scaledSize: new google.maps.Size(50, 70)
 	};
 	var markerOrigin = new google.maps.Marker({
 	    position: bikeApp.shortestDistanceOriginLatLong,
