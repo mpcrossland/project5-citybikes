@@ -168,7 +168,51 @@ input[type=range]::-moz-range-thumb {
     margin: 0 auto;
 }
 
+// Pop up window styles
+.pop-up-window {
+  color: black;
+  max-width: 200px;
 
+}
+
+// appending info to page
+
+.travelTime, .priceContainer, .roundTrip {
+  position: absolute;
+  z-index: 9999999;
+  background: #53777A;
+  max-width: 100px;
+  color: white;
+  font-family: 'Josefin Sans', sans-serif;
+  border-radius: 5px;
+  padding: 5px;
+  p {
+    margin: 0;
+  }
+}
+
+.travelTime, .roundTrip {
+  top: 50px;
+}
+
+.priceContainer {
+  top: 120px;
+}
+
+.noStation {
+  position: absolute;
+  z-index: 9999999;
+  background: #D95B43;
+  max-width: 90%;
+  color: white;
+  font-family: 'Josefin Sans', sans-serif;
+  border-radius: 5px;
+  padding: 5px;
+  top: 400px;
+  p {
+    margin: 5px;
+  }
+}
 
 
 //button styling---------------------------

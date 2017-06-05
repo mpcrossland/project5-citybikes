@@ -262,20 +262,29 @@ bikeApp.getCityBikesPricing = function(userTime, distanceDurationMinutes, roundT
 bikeApp.displayResults = function (stationDistance, roundTripTravelTime, userFinalPrice) {
 	const originDistanceKm = (bikeApp.shortestDistanceOriginStation.distance_origin / 1000).toFixed(2);
 	const destinationDistanceKm = (bikeApp.shortestDistanceDestinationStation.distance_dest / 1000).toFixed(2);
-	const originPoint = $("<p>").text(`Station closest to your origin: ${bikeApp.shortestDistanceOriginStation.station_name}, ${originDistanceKm}km away`);
-	const destinationPoint = $("<p>").text(`Station closest to your destination: ${bikeApp.shortestDistanceDestinationStation.station_name}, ${destinationDistanceKm}km away`);
-	const travelTime = $("<p>").text(`It will take you ${ Math.floor(stationDistance) } minutes to cycle from ${bikeApp.shortestDistanceOriginStation.station_name} to ${bikeApp.shortestDistanceDestinationStation.station_name}`);
-	const userPrice = $("<p>").text(`Trip Cost $${userFinalPrice}`);
+	const originPoint = `<div class="pop-up-window"><p>Station closest to your origin: ${bikeApp.shortestDistanceOriginStation.station_name}, ${originDistanceKm}km away</p></div>`
+	const destinationPoint = `<div class="pop-up-window"><p>Station closest to your destination: ${bikeApp.shortestDistanceDestinationStation.station_name}, ${destinationDistanceKm}km away</p></div>`
+	const travelTimeContainer = $('<div>').addClass('travelTime');
+	const travelTime = $("<p>").text(`Travel Time: ${ Math.floor(stationDistance) } minutes`);
+	travelTimeContainer.append(travelTime);
+	const priceContainer = $('<div>').addClass('priceContainer');
+	const userPrice = $("<p>").text(`Trip Cost: $${userFinalPrice}`);
+	priceContainer.append(userPrice);
 	$('.trip-info').empty();
 	if (destinationDistanceKm > 2) {
+	const noStation = $('<div>').addClass('noStation');
 	const noDestinationStation = $("<p>").text(`There are no stations near your destination point.`);
-	const originStationRoundTrip = $("<p>").text(`It will take you ${roundTripTravelTime} minutes to get to your destination and back`);
-	$(".trip-info").append(originPoint, noDestinationStation, originStationRoundTrip, userPrice);
+	noStation.append(noDestinationStation);
+	const roundTrip = $('<div>').addClass('roundTrip');
+	const originStationRoundTrip = $("<p>").text(`Round Trip Time: ${roundTripTravelTime} minutes`);
+	roundTrip.append(originStationRoundTrip);
+	bikeApp.placeMarkers(originPoint, null, destinationDistanceKm);
+		$(".trip-info").append(noStation, roundTrip, priceContainer);
 	}
 	else {
-		$(".trip-info").append(originPoint, destinationPoint, travelTime, userPrice);
+	bikeApp.placeMarkers(originPoint, destinationPoint, destinationDistanceKm)
+		$(".trip-info").append(travelTimeContainer, priceContainer);
 	}
-	bikeApp.placeMarkers();
 }
 
 //this is used to initialize the map 
@@ -283,26 +292,53 @@ var map;
 var initMap = function() {
 	map = new google.maps.Map(document.getElementById('map'), {
 	  center: { lat: 43.70011, lng: -79.4163 },
-	  zoom: 12
+	  zoom: 12,
+	  styles: [{ "featureType": "administrative", "elementType": "labels.text.fill", "stylers": [{ "color": "#542437" }] }, { "featureType": "administrative.country", "elementType": "all", "stylers": [{ "saturation": "0" }] }, { "featureType": "landscape", "elementType": "all", "stylers": [{ "color": "#d6d4d4" }] }, { "featureType": "poi", "elementType": "all", "stylers": [{ "visibility": "off" }] }, { "featureType": "road", "elementType": "all", "stylers": [{ "saturation": -100 }, { "lightness": 45 }] }, { "featureType": "road.highway", "elementType": "all", "stylers": [{ "visibility": "simplified" }] }, { "featureType": "road.arterial", "elementType": "labels.icon", "stylers": [{ "visibility": "off" }] }, { "featureType": "transit", "elementType": "all", "stylers": [{ "visibility": "off" }] }, { "featureType": "water", "elementType": "all", "stylers": [{ "color": "#53777A" }, { "visibility": "on" }] }, { "featureType": "water", "elementType": "labels.text.fill", "stylers": [{ "lightness": "11" }, { "saturation": "18" }] }]
 	});	
 	if (bikeApp.shortestDistanceDestinationLatLong !== undefined && bikeApp.shortestDistanceOriginLatLong !== undefined) {
 		bikeApp.placeMarkers();
 	} 
 }
 
-bikeApp.placeMarkers = function() {
-	// var customIcon = 'https://image.flaticon.com/icons/png/128/34/34468.png'
+bikeApp.placeMarkers = function(origin, destination, distanceDestination) {
+
+    var infowindowOrigin = new google.maps.InfoWindow({
+          content: origin
+    });
+
+    var infowindowDestination = new google.maps.InfoWindow({
+          content: destination
+    });
+
+	var customIcon = {
+		url: '../../dev/assets/images/citybike-marker.svg',
+		// size: new google.maps.Size(71, 71),
+		// anchor: new google.maps.Point(17, 34),
+		scaledSize: new google.maps.Size(75, 100)
+	};
 	var markerOrigin = new google.maps.Marker({
 	    position: bikeApp.shortestDistanceOriginLatLong,
 	    map: map,
-	    title: 'origin marker'
+	    title: 'origin marker',
+	    icon: customIcon
 	});
 
-	var markerDestination = new google.maps.Marker({
-	    position: bikeApp.shortestDistanceDestinationLatLong,
-	    map: map,
-	    title: 'destination marker'
-	});
+	markerOrigin.addListener('click', function() {
+          infowindowOrigin.open(map, markerOrigin);
+    });
+
+	if (distanceDestination < 2) {
+		var markerDestination = new google.maps.Marker({
+		    position: bikeApp.shortestDistanceDestinationLatLong,
+		    map: map,
+		    title: 'destination marker',
+		    icon: customIcon
+		});
+
+		markerDestination.addListener('click', function() {
+	          infowindowDestination.open(map, markerDestination);
+	    });
+	}
 }
 
 function scaleVideoContainer() {
