@@ -41,16 +41,15 @@ h1 {
   font-size: 1.2em;
   color: white;
   top: 50px;
-  // transform: translate(50%);
   position: absolute;
   text-align: center;
   margin: 20px auto;
-  right: 25%;
-  left: 25%;
+  right: 20%;
+  left: 20%;
   border: 10px solid $magentaColor;
   background-color: rgba(217, 91, 67, .9);
   border-radius: 20px;
-  width: 50%;
+  width: 60%;
   padding: 5px;
   label {
     font-family: $headingFont;
@@ -118,7 +117,7 @@ h1 {
 }
 
 .priceContainer {
-  top: 110px;
+  top: 120px;
 }
 
 .noStation {
@@ -130,7 +129,7 @@ h1 {
   font-family: $headingFont;
   border-radius: 5px;
   padding: 5px;
-  top: 400px;
+  top: 275px;
   p {
     margin: 5px;
   }
@@ -243,6 +242,7 @@ h1 {
 		margin: auto;
 		right: 10%;
 		left: 10%;
+    top: 10px;
 
 	}
 }
