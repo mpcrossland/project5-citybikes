@@ -313,9 +313,9 @@ bikeApp.placeMarkers = function(origin, destination, distanceDestination) {
 
 	var customIcon = {
 		url: '../../dev/assets/images/citybike-marker.svg',
-		size: new google.maps.Size(40, 40),
-		anchor: new google.maps.Point(17, 34),
-		scaledSize: new google.maps.Size(50, 75)
+		size: new google.maps.Size(50, 70),
+		anchor: new google.maps.Point(0, 40),
+		scaledSize: new google.maps.Size(50, 70)
 	};
 	var markerOrigin = new google.maps.Marker({
 	    position: bikeApp.shortestDistanceOriginLatLong,
@@ -411,8 +411,6 @@ $(function() {
 	    scaleBannerVideoSize('.video-container video');
 	});
 });
-
-
 
 
 
