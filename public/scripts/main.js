@@ -174,7 +174,7 @@ bikeApp.getUserInput = function () {
 
 //turns the location in to lat/lon values
 bikeApp.getUserLatLong = function (callback, address) {
-	geocoder = new google.maps.Geocoder();
+	var geocoder = new google.maps.Geocoder();
 	if (geocoder) {
 		geocoder.geocode({
 			'address': address
@@ -290,7 +290,7 @@ var map;
 var initMap = function initMap() {
 	map = new google.maps.Map(document.getElementById('map'), {
 		center: { lat: 43.6543, lng: -79.3860 },
-		zoom: 13,
+		zoom: 11,
 		styles: [{ "featureType": "administrative", "elementType": "labels.text.fill", "stylers": [{ "color": "#542437" }] }, { "featureType": "administrative.country", "elementType": "all", "stylers": [{ "saturation": "0" }] }, { "featureType": "landscape", "elementType": "all", "stylers": [{ "color": "#d6d4d4" }] }, { "featureType": "poi", "elementType": "all", "stylers": [{ "visibility": "off" }] }, { "featureType": "road", "elementType": "all", "stylers": [{ "saturation": -100 }, { "lightness": 45 }] }, { "featureType": "road.highway", "elementType": "all", "stylers": [{ "visibility": "simplified" }] }, { "featureType": "road.arterial", "elementType": "labels.icon", "stylers": [{ "visibility": "off" }] }, { "featureType": "transit", "elementType": "all", "stylers": [{ "visibility": "off" }] }, { "featureType": "water", "elementType": "all", "stylers": [{ "color": "#53777A" }, { "visibility": "on" }] }, { "featureType": "water", "elementType": "labels.text.fill", "stylers": [{ "lightness": "11" }, { "saturation": "18" }] }]
 	});
 	if (bikeApp.shortestDistanceDestinationLatLong !== undefined && bikeApp.shortestDistanceOriginLatLong !== undefined) {
@@ -310,9 +310,9 @@ bikeApp.placeMarkers = function (origin, destination, distanceDestination) {
 	});
 	//custom marker info
 	var customIcon = {
-		url: '../../dev/assets/images/citybike-marker.svg',
+		url: './public/assets/images/citybike-marker.svg',
 		size: new google.maps.Size(50, 70),
-		anchor: new google.maps.Point(0, 40),
+		anchor: new google.maps.Point(0, 70),
 		scaledSize: new google.maps.Size(50, 70)
 	};
 	var markerOrigin = new google.maps.Marker({
