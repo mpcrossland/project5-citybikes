@@ -20,6 +20,9 @@ body {
 main {
   position: absolute;
   top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
   width: 100%;
   height: 100%;
   z-index: 10;
@@ -38,10 +41,12 @@ h1 {
   font-size: 1.2em;
   color: white;
   top: 50px;
-  transform: translate(50%);
+  // transform: translate(50%);
   position: absolute;
   text-align: center;
   margin: 20px auto;
+  right: 25%;
+  left: 25%;
   border: 10px solid $magentaColor;
   background-color: rgba(217, 91, 67, .9);
   border-radius: 20px;
@@ -80,7 +85,7 @@ h1 {
 
 }
   #map {
-    height: 450px;
+    height: 325px;
     width: 100%;
     margin: 0 auto;
 }
@@ -113,7 +118,7 @@ h1 {
 }
 
 .priceContainer {
-  top: 120px;
+  top: 110px;
 }
 
 .noStation {
@@ -228,3 +233,43 @@ h1 {
 .video-container video.fillWidth {
     width: 100%;
 }
+
+//Media queries
+
+/* Portrait tablet and small desktops */
+@media (max-width: 940px) {
+.wrapper {
+		width: 80%;
+		margin: auto;
+		right: 10%;
+		left: 10%;
+
+	}
+}
+
+/* Landscape phone to portrait tablet */
+@media (max-width: 768px) {
+}
+
+/* Landscape phones and down */
+@media (max-width: 480px) {
+.wrapper {
+		width: 95%;
+		right: 2.5%;
+		left: 2.5%;
+	}
+
+h1 {
+  font-family: $headingFont;
+  font-size: 4rem;
+	}
+}
+
+
+
+
+
+
+
+
+
