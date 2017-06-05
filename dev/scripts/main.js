@@ -292,8 +292,8 @@ bikeApp.displayResults = function (stationDistance, roundTripTravelTime, userFin
 var map;
 var initMap = function() {
 	map = new google.maps.Map(document.getElementById('map'), {
-	  center: { lat: 43.70011, lng: -79.4163 },
-	  zoom: 12,
+	  center: { lat: 43.6543, lng: -79.3860 },
+	  zoom: 13,
 	  styles: [{ "featureType": "administrative", "elementType": "labels.text.fill", "stylers": [{ "color": "#542437" }] }, { "featureType": "administrative.country", "elementType": "all", "stylers": [{ "saturation": "0" }] }, { "featureType": "landscape", "elementType": "all", "stylers": [{ "color": "#d6d4d4" }] }, { "featureType": "poi", "elementType": "all", "stylers": [{ "visibility": "off" }] }, { "featureType": "road", "elementType": "all", "stylers": [{ "saturation": -100 }, { "lightness": 45 }] }, { "featureType": "road.highway", "elementType": "all", "stylers": [{ "visibility": "simplified" }] }, { "featureType": "road.arterial", "elementType": "labels.icon", "stylers": [{ "visibility": "off" }] }, { "featureType": "transit", "elementType": "all", "stylers": [{ "visibility": "off" }] }, { "featureType": "water", "elementType": "all", "stylers": [{ "color": "#53777A" }, { "visibility": "on" }] }, { "featureType": "water", "elementType": "labels.text.fill", "stylers": [{ "lightness": "11" }, { "saturation": "18" }] }]
 	});	
 	if (bikeApp.shortestDistanceDestinationLatLong !== undefined && bikeApp.shortestDistanceOriginLatLong !== undefined) {
@@ -313,9 +313,9 @@ bikeApp.placeMarkers = function(origin, destination, distanceDestination) {
 
 	var customIcon = {
 		url: '../../dev/assets/images/citybike-marker.svg',
-		// size: new google.maps.Size(71, 71),
-		// anchor: new google.maps.Point(17, 34),
-		scaledSize: new google.maps.Size(75, 100)
+		size: new google.maps.Size(40, 40),
+		anchor: new google.maps.Point(17, 34),
+		scaledSize: new google.maps.Size(50, 75)
 	};
 	var markerOrigin = new google.maps.Marker({
 	    position: bikeApp.shortestDistanceOriginLatLong,
