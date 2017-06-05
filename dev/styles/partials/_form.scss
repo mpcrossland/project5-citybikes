@@ -1,0 +1,60 @@
+input.controls {
+  width: 95%;
+  height: 50px;
+  background-color: rgba(217, 91, 67, .01);
+  border: none;
+  border-bottom: 1px solid $magentaColor;
+  margin-bottom: 20px;
+  padding: 10px;
+  text-align: center;
+  &:focus {
+    background-color: #E89D8E;
+    color: $purpleColor;
+    outline: $purpleColor;
+  }
+  &::placeholder {
+    text-align: center;
+    color: $magentaColor;
+    font-size: 1.4rem;
+    text-transform: uppercase;
+    }
+}
+
+// Slider Styles
+input[type=range] {
+ -webkit-appearance: none;
+ margin: 18px 0;
+ width: 80%;
+ background: $magentaColor;
+ height: 10px;
+ border-radius: 5px;
+ &:focus {
+  outline: none;
+ }
+}
+
+input[type=range]::-webkit-slider-thumb {
+  height: 50px;
+  width: 73px;
+  border-radius: 50%;
+  background-image: url("../assets/images/bikeSVG.svg");
+  background-size: cover;
+  cursor: pointer;
+  -webkit-appearance: none;
+}
+
+input[type=range]::-moz-range-thumb {
+  border: none;
+  background-color: transparent;
+  height: 50px;
+  width: 73px;
+  border-radius: 50%;
+  background-image: url("../assets/images/bikeSVG.svg");
+  background-size: cover;
+  cursor: pointer;
+  
+}
+
+::-moz-range-track {
+    background: $orangeColor;
+}
